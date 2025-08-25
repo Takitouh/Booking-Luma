@@ -2,13 +2,10 @@ package com.Luma_v1.Hotel_Luma.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-import java.util.List;
-
 public record PutHotelDTO(
-        @NotBlank(message = "")
+        @NotBlank(message = "Name can't be null or blank")
         String name,
-        @NotBlank(message = "")
-        String location,
-        List<CreateRoomDTO> rooms
+        @NotBlank(message = "Location can't be null or blank")
+        String location
 ) {
 }
