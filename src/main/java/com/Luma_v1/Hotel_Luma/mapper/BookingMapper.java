@@ -10,8 +10,7 @@ import com.Luma_v1.Hotel_Luma.entity.Room;
 import com.Luma_v1.Hotel_Luma.repository.IRepositoryGuest;
 import com.Luma_v1.Hotel_Luma.repository.IRepositoryRoom;
 import jakarta.persistence.EntityNotFoundException;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring")
@@ -50,7 +49,8 @@ public abstract class BookingMapper {
     @Mapping(source = "roomId", target = "room")
     @Mapping(source = "totalPrice", target = "totalPrice")
     @Mapping(target = "id", ignore = true)
-    public abstract Booking toEntity(PatchBookingDTO patchBookingDTO);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    public abstract Booking toEntity(PatchBookingDTO patchBookingDTO, @MappingTarget Booking booking);
 
     @SuppressWarnings("unused")
     protected Room givenIDRoom_returnRoomEntity(Long idRoom) {

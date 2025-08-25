@@ -5,8 +5,7 @@ import com.Luma_v1.Hotel_Luma.dto.CreateGuestDTO;
 import com.Luma_v1.Hotel_Luma.dto.PutGuestDTO;
 import com.Luma_v1.Hotel_Luma.dto.PatchGuestDTO;
 import com.Luma_v1.Hotel_Luma.entity.Guest;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface GuestMapper {
@@ -32,5 +31,6 @@ public interface GuestMapper {
     @Mapping(source = "phone", target = "phone")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "bookings", ignore = true)
-    Guest toEntity(PatchGuestDTO patchGuestDTO);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Guest toEntity(PatchGuestDTO patchGuestDTO, @MappingTarget Guest guest);
 }

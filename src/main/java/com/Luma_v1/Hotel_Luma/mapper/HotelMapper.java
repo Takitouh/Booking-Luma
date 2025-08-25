@@ -5,8 +5,7 @@ import com.Luma_v1.Hotel_Luma.dto.CreateHotelDTO;
 import com.Luma_v1.Hotel_Luma.dto.PutHotelDTO;
 import com.Luma_v1.Hotel_Luma.dto.PatchHotelDTO;
 import com.Luma_v1.Hotel_Luma.entity.Hotel;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", uses = {RoomMapper.class})
 public interface HotelMapper {
@@ -29,5 +28,6 @@ public interface HotelMapper {
     @Mapping(source = "name", target = "name")
 //    @Mapping(target = "rooms", ignore = true)
     @Mapping(target = "id", ignore = true)
-    Hotel toEntity(PatchHotelDTO patchHotelDTO);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Hotel toEntity(PatchHotelDTO patchHotelDTO, @MappingTarget Hotel hotel);
 }
