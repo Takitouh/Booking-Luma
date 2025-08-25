@@ -1,7 +1,6 @@
 package com.Luma_v1.Hotel_Luma.service.impl;
 
-import com.Luma_v1.Hotel_Luma.dto.CreateGuestDTO;
-import com.Luma_v1.Hotel_Luma.dto.ResponseGuestDTO;
+import com.Luma_v1.Hotel_Luma.dto.*;
 import com.Luma_v1.Hotel_Luma.entity.Guest;
 import com.Luma_v1.Hotel_Luma.mapper.GuestMapper;
 import com.Luma_v1.Hotel_Luma.repository.IRepositoryGuest;
@@ -9,6 +8,7 @@ import com.Luma_v1.Hotel_Luma.service.IServiceGuest;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,11 +37,63 @@ public class ServiceGuest implements IServiceGuest {
     @Override
     public ResponseGuestDTO save(CreateGuestDTO guest) {
         Guest guestEntity = guestMapper.toEntity(guest);
+        guestRepository.save(guestEntity);
         return guestMapper.toResponseDTO(guestRepository.save(guestEntity));
+    }
+
+    @Override
+    public List<ResponseGuestDTO> saveAll(List<CreateGuestDTO> guests) {
+        List<Guest> guestList = new ArrayList<>();
+        List<ResponseGuestDTO> responses = new ArrayList<>();
+        for (CreateGuestDTO guestDTO : guests) {
+            guestList.add(guestMapper.toEntity(guestDTO));
+        }
+        guestRepository.saveAll(guestList);
+        for (Guest guest : guestList) {
+            responses.add(guestMapper.toResponseDTO(guest));
+        }
+        return responses;
     }
 
     @Override
     public void deleteById(Long id) {
         guestRepository.deleteById(id);
+    }
+
+    @Override
+    public ResponseGuestDTO updateWithPut(PutGuestDTO guest, Long id) {
+        Guest oldGuest = guestRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        Guest newGuest = guestMapper.toEntity(guest);
+
+        oldGuest.setEmail(newGuest.getEmail());
+        oldGuest.setFirstName(newGuest.getFirstName());
+        oldGuest.setLastName(newGuest.getLastName());
+        oldGuest.setPhone(newGuest.getPhone());
+        oldGuest.setBookings(newGuest.getBookings());
+
+        guestRepository.save(oldGuest);
+
+        return guestMapper.toResponseDTO(oldGuest);
+    }
+
+    @Override
+    public ResponseGuestDTO updateWithPatch(PatchGuestDTO guest, Long id) {
+        Guest oldGuest = guestRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        Guest newGuest = guestMapper.toEntity(guest, oldGuest);
+
+        oldGuest.setEmail(newGuest.getEmail() != null ? newGuest.getEmail() : oldGuest.getEmail());
+        oldGuest.setFirstName(newGuest.getFirstName() != null ? newGuest.getFirstName() : oldGuest.getFirstName());
+        oldGuest.setLastName(newGuest.getLastName() != null ? newGuest.getLastName() : oldGuest.getLastName());
+        oldGuest.setPhone(newGuest.getPhone() != null ? newGuest.getPhone() : oldGuest.getPhone());
+        oldGuest.setBookings(newGuest.getBookings() != null ? newGuest.getBookings() : oldGuest.getBookings());
+
+        guestRepository.save(oldGuest);
+
+        return guestMapper.toResponseDTO(oldGuest);
+    }
+
+    @Override
+    public List<ResponseRoomNumAndBookingDateDTO> findBookingDateAndRoomNumAndGuestNameByGuestEmail(String email) {
+        return guestRepository.findBookingsByGuestEmail(email);
     }
 }

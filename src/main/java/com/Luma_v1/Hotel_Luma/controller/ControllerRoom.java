@@ -1,6 +1,8 @@
 package com.Luma_v1.Hotel_Luma.controller;
 
 import com.Luma_v1.Hotel_Luma.dto.CreateRoomDTO;
+import com.Luma_v1.Hotel_Luma.dto.PatchRoomDTO;
+import com.Luma_v1.Hotel_Luma.dto.PutRoomDTO;
 import com.Luma_v1.Hotel_Luma.dto.ResponseRoomHotelNameDTO;
 import com.Luma_v1.Hotel_Luma.service.IServiceRoom;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,17 +39,30 @@ public class ControllerRoom {
         return new ResponseEntity<>(roomService.save(room), HttpStatus.CREATED);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Room> updateRoom(@PathVariable Long id, @RequestBody Room room) {
-//        Optional<Room> existingRoom = roomService.findById(id);
-//        if (existingRoom.isPresent()) {
-//            room.setId(id);
-//            Room updatedRoom = roomService.save(room);
-//            return new ResponseEntity<>(updatedRoom, HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @PostMapping("/postBatch")
+    public ResponseEntity<List<ResponseRoomHotelNameDTO>> createRoom(@RequestBody List<CreateRoomDTO> rooms) {
+        return new ResponseEntity<>(roomService.saveAll(rooms), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/put/{id}")
+    public ResponseEntity<ResponseRoomHotelNameDTO> updateRoom(@PathVariable Long id, @RequestBody PutRoomDTO room) {
+        Optional<ResponseRoomHotelNameDTO> existingRoom = Optional.ofNullable(roomService.findById(id));
+        if (existingRoom.isPresent()) {
+            return new ResponseEntity<>(roomService.updateWithPut(room, id), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PatchMapping("/patch/{id}")
+    public ResponseEntity<ResponseRoomHotelNameDTO> updateRoom(@PathVariable Long id, @RequestBody PatchRoomDTO room) {
+        Optional<ResponseRoomHotelNameDTO> existingRoom = Optional.ofNullable(roomService.findById(id));
+        if (existingRoom.isPresent()) {
+            return new ResponseEntity<>(roomService.updateWithPatch(room, id), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteRoom(@PathVariable Long id) {

@@ -1,8 +1,9 @@
 package com.Luma_v1.Hotel_Luma.controller;
 
 import com.Luma_v1.Hotel_Luma.dto.CreateHotelDTO;
+import com.Luma_v1.Hotel_Luma.dto.PatchHotelDTO;
+import com.Luma_v1.Hotel_Luma.dto.PutHotelDTO;
 import com.Luma_v1.Hotel_Luma.dto.ResponseHotelDTO;
-import com.Luma_v1.Hotel_Luma.entity.Hotel;
 import com.Luma_v1.Hotel_Luma.service.IServiceHotel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,17 +39,30 @@ public class ControllerHotel {
         return new ResponseEntity<>(hotelService.save(hotel), HttpStatus.CREATED);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ResponseHotelDTO> updateHotel(@PathVariable Long id, @RequestBody Hotel hotel) {
-//        Optional<Hotel> existingHotel = hotelService.findById(id);
-//        if (existingHotel.isPresent()) {
-//            hotel.setId(id);
-//            Hotel updatedHotel = hotelService.save(hotel);
-//            return new ResponseEntity<>(updatedHotel, HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @PostMapping("/postBatch")
+    public ResponseEntity<List<ResponseHotelDTO>> createHotel(@RequestBody List<CreateHotelDTO> hotels) {
+        return new ResponseEntity<>(hotelService.saveAll(hotels), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/put/{id}")
+    public ResponseEntity<ResponseHotelDTO> updateHotel(@PathVariable Long id, @RequestBody PutHotelDTO hotel) {
+        Optional<ResponseHotelDTO> existingHotel = Optional.ofNullable(hotelService.findById(id));
+        if (existingHotel.isPresent()) {
+            return new ResponseEntity<>(hotelService.updateWithPut(hotel, id), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PatchMapping("/patch/{id}")
+    public ResponseEntity<ResponseHotelDTO> updateHotel(@PathVariable Long id, @RequestBody PatchHotelDTO hotel) {
+        Optional<ResponseHotelDTO> existingHotel = Optional.ofNullable(hotelService.findById(id));
+        if (existingHotel.isPresent()) {
+            return new ResponseEntity<>(hotelService.updateWithPatch(hotel, id), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteHotel(@PathVariable Long id) {

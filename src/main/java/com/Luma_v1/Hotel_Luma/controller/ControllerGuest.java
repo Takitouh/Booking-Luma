@@ -1,8 +1,8 @@
 package com.Luma_v1.Hotel_Luma.controller;
 
-import com.Luma_v1.Hotel_Luma.dto.CreateGuestDTO;
-import com.Luma_v1.Hotel_Luma.dto.ResponseGuestDTO;
+import com.Luma_v1.Hotel_Luma.dto.*;
 import com.Luma_v1.Hotel_Luma.service.IServiceGuest;
+import jakarta.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,17 +37,30 @@ public class ControllerGuest {
         return new ResponseEntity<>(guestService.save(guest), HttpStatus.CREATED);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ResponseGuestDTO> updateGuest(@PathVariable Long id, @RequestBody PutGuestDTO guest) {
-//        Optional<Guest> existingGuest = guestService.findById(id);
-//        if (existingGuest.isPresent()) {
-//            guest.setId(id);
-//            Guest updatedGuest = guestService.save(guest);
-//            return new ResponseEntity<>(updatedGuest, HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @PostMapping("/postBatch")
+    public ResponseEntity<List<ResponseGuestDTO>> createGuests(@RequestBody List<CreateGuestDTO> guests) {
+        return new ResponseEntity<>(guestService.saveAll(guests), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/put/{id}")
+    public ResponseEntity<ResponseGuestDTO> updateGuest(@PathVariable Long id, @RequestBody PutGuestDTO guest) {
+        Optional<ResponseGuestDTO> existingGuest = Optional.ofNullable(guestService.findById(id));
+        if (existingGuest.isPresent()) {
+            return new ResponseEntity<>(guestService.updateWithPut(guest, id), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PatchMapping("/patch/{id}")
+    public ResponseEntity<ResponseGuestDTO> updateGuest(@PathVariable Long id, @RequestBody PatchGuestDTO guest) {
+        Optional<ResponseGuestDTO> existingGuest = Optional.ofNullable(guestService.findById(id));
+        if (existingGuest.isPresent()) {
+            return new ResponseEntity<>(guestService.updateWithPatch(guest, id), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteGuest(@PathVariable Long id) {
@@ -58,5 +71,10 @@ public class ControllerGuest {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/getbookings-byemail/{email}")
+    public ResponseEntity<List<ResponseRoomNumAndBookingDateDTO>> getAllBookingsByGuestEmail(@PathVariable @Email String email) {
+        return new ResponseEntity<>(guestService.findBookingDateAndRoomNumAndGuestNameByGuestEmail(email), HttpStatus.OK);
     }
 }
