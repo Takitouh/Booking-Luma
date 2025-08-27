@@ -69,7 +69,7 @@ public class ServiceRoom implements IServiceRoom {
 
         oldRoom.setHotel(newRoom.getHotel());
         oldRoom.setNumber(newRoom.getNumber());
-        oldRoom.setPricePerNight(newRoom.getPricePerNight());
+        oldRoom.setNormalFee(newRoom.getNormalFee());
         oldRoom.setBookings(newRoom.getBookings());
 
         roomRepository.save(oldRoom);
@@ -85,7 +85,7 @@ public class ServiceRoom implements IServiceRoom {
 
         oldRoom.setHotel(newRoom.getHotel() != null ? newRoom.getHotel() : oldRoom.getHotel());
         oldRoom.setNumber(newRoom.getNumber() != null ? newRoom.getNumber() : oldRoom.getNumber());
-        oldRoom.setPricePerNight(newRoom.getPricePerNight() != null ? newRoom.getPricePerNight() : oldRoom.getPricePerNight());
+        oldRoom.setNormalFee(newRoom.getNormalFee() != null ? newRoom.getNormalFee() : oldRoom.getNormalFee());
         oldRoom.setBookings(newRoom.getBookings() != null ? newRoom.getBookings() : oldRoom.getBookings());
 
         roomRepository.save(oldRoom);
