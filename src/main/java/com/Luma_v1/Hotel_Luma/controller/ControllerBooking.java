@@ -4,7 +4,9 @@ import com.Luma_v1.Hotel_Luma.dto.CreateBookingDTO;
 import com.Luma_v1.Hotel_Luma.dto.PatchBookingDTO;
 import com.Luma_v1.Hotel_Luma.dto.PutBookingDTO;
 import com.Luma_v1.Hotel_Luma.dto.ResponseBookingDTO;
+import com.Luma_v1.Hotel_Luma.entity.Booking;
 import com.Luma_v1.Hotel_Luma.exceptionHandler.exceptions.BookingCheckInOrCheckOutInvalidException;
+import com.Luma_v1.Hotel_Luma.exceptionHandler.exceptions.ExceedScheduleDayUseException;
 import com.Luma_v1.Hotel_Luma.service.IServiceBooking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,6 +44,8 @@ public class ControllerBooking {
             throw new BookingCheckInOrCheckOutInvalidException("Check out date must be after check in date");
         } else if (booking.checkIn().isAfter(booking.checkOut())) {
             throw new BookingCheckInOrCheckOutInvalidException("Check in date must be before check out date.");
+        } else if (exceedsDayUseSchedule(booking)) {
+            throw new ExceedScheduleDayUseException("The type of booking is DAY USE but you are booking more of what is allowed, please book less time.");
         }
         return new ResponseEntity<>(bookingService.save(booking), HttpStatus.CREATED);
     }
@@ -81,5 +85,9 @@ public class ControllerBooking {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    private boolean exceedsDayUseSchedule(CreateBookingDTO booking) {
+        return booking.type() == Booking.BookingType.DAY_USE && (booking.checkOut().getHour() - booking.checkIn().getHour() > 12 || booking.checkIn().getDayOfMonth() != booking.checkOut().getDayOfMonth() || booking.checkIn().getMonth() != booking.checkOut().getMonth() || booking.checkIn().getYear() != booking.checkOut().getYear());
     }
 }
