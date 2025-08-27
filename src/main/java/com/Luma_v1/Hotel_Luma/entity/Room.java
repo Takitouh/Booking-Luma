@@ -17,7 +17,10 @@ public class Room {
     private Long id;
 
     private String number;
-    private BigDecimal pricePerNight;
+
+    private BigDecimal normalFee; // Fee for staying overnight, with check-in
+
+    private BigDecimal dayUseFee; //Fee for using the room during the day, without overnight stay
 
     @ManyToOne
     private Hotel hotel;
