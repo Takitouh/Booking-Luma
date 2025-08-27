@@ -8,8 +8,10 @@ import java.math.BigDecimal;
 public record CreateRoomDTO(
         @NotBlank(message = "Number of the room can't be null or blank")
         String number,
-        @NotNull(message = "Price per night can't be null")
-        BigDecimal pricePerNight,
+        @NotNull(message = "Normal fee can't be null")
+        BigDecimal normalFee,
+        @NotNull(message = "Day use fee can't be null")
+        BigDecimal dayUseFee,
         @NotNull(message = "Hotel ID can't be null")
         Long idHotel
 ) {

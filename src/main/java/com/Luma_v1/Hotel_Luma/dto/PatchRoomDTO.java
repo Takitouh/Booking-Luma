@@ -5,7 +5,8 @@ import java.math.BigDecimal;
 
 public record PatchRoomDTO(
         String number,
-        BigDecimal pricePerNight,
+        BigDecimal normalFee,
+        BigDecimal dayUseFee,
         Long idHotel
 ) {
 }
