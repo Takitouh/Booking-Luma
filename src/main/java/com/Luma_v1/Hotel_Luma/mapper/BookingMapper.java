@@ -22,11 +22,13 @@ public abstract class BookingMapper {
 
     @Mapping(source = "guest", target = "guestName")
     @Mapping(source = "room", target = "roomNumber")
+    @Mapping(source = "type", target = "type")
     public abstract ResponseBookingDTO toResponseDTO(Booking booking);
 
     @Mapping(source = "checkIn", target = "checkIn")
     @Mapping(source = "checkOut", target = "checkOut")
     @Mapping(source = "status", target = "status")
+    @Mapping(source = "type", target = "type")
     @Mapping(source = "totalPrice", target = "totalPrice")
     @Mapping(source = "guestId", target = "guest")
     @Mapping(source = "roomId", target = "room")
@@ -36,6 +38,7 @@ public abstract class BookingMapper {
     @Mapping(source = "checkIn", target = "checkIn")
     @Mapping(source = "checkOut", target = "checkOut")
     @Mapping(source = "status", target = "status")
+    @Mapping(source = "type", target = "type")
     @Mapping(source = "totalPrice", target = "totalPrice")
     @Mapping(source = "guestId", target = "guest")
     @Mapping(source = "roomId", target = "room")
@@ -45,6 +48,7 @@ public abstract class BookingMapper {
     @Mapping(source = "checkIn", target = "checkIn")
     @Mapping(source = "checkOut", target = "checkOut")
     @Mapping(source = "status", target = "status")
+    @Mapping(source = "type", target = "type")
     @Mapping(source = "guestId", target = "guest")
     @Mapping(source = "roomId", target = "room")
     @Mapping(source = "totalPrice", target = "totalPrice")
