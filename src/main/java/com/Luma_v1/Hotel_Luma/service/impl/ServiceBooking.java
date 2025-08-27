@@ -13,6 +13,9 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,11 +47,13 @@ public class ServiceBooking implements IServiceBooking {
     @Override
     public ResponseBookingDTO save(CreateBookingDTO booking) {
         Booking bookingEntity = bookingMapper.toEntity(booking);
-        Integer nBooking = bookingRepository.givenCheckInAndCheckOutAndRoomID_CheckValidBookingDate(booking.roomId(), booking.checkIn(), booking.checkOut());
-        if (nBooking != 0)
-            throw new BookingDateCrossInvalidException("The requested dates for the room with ID: " + booking.roomId() + " are crossing with another booking");
+
+        validateBookingDateCrossingAndCalculateTotal(bookingEntity);
+
+        logBooking(bookingEntity);
+
         bookingRepository.save(bookingEntity);
-        return bookingMapper.toResponseDTO(bookingRepository.save(bookingEntity));
+        return bookingMapper.toResponseDTO(bookingEntity);
     }
 
     @Override
@@ -57,6 +62,10 @@ public class ServiceBooking implements IServiceBooking {
         List<ResponseBookingDTO> responses = new ArrayList<>();
         for (CreateBookingDTO bookingDTO : bookings) {
             bookingsList.add(bookingMapper.toEntity(bookingDTO));
+        }
+        for (Booking booking : bookingsList) {
+            validateBookingDateCrossingAndCalculateTotal(booking);
+            logBooking(booking);
         }
         bookingRepository.saveAll(bookingsList);
         for (Booking booking : bookingsList) {
