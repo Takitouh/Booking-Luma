@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalTime;
+import java.util.Set;
 
 public record CreateHotelDTO(
         @NotBlank(message = "Name can't be null or blank")
@@ -17,6 +18,7 @@ public record CreateHotelDTO(
         @NotNull(message = "Schedule day use start can't be null")
         LocalTime scheduleDayUseStart,
         @NotNull(message = "Schedule day use end can't be null")
-        LocalTime scheduleDayUseEnd
+        LocalTime scheduleDayUseEnd,
+        Set<String> amenities
 ) {
 }

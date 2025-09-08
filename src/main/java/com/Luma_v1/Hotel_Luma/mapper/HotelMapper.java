@@ -18,6 +18,7 @@ public interface HotelMapper {
     @Mapping(source = "scheduleDayUseStart", target = "scheduleDayUseStart")
     @Mapping(source = "scheduleDayUseEnd", target = "scheduleDayUseEnd")
     @Mapping(source = "rooms", target = "rooms")
+    @Mapping(source = "amenities", target = "amenities")
     ResponseHotelDTO toResponseDTO(Hotel hotel);
 
     @Mapping(source = "location", target = "location")
@@ -47,6 +48,7 @@ public interface HotelMapper {
     @Mapping(source = "scheduleDayUseStart", target = "scheduleDayUseStart")
     @Mapping(source = "scheduleDayUseEnd", target = "scheduleDayUseEnd")
     @Mapping(source = "rooms", target = "rooms")
+    @Mapping(source = "amenities", target = "amenities")
     @Mapping(target = "id", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Hotel toEntity(PatchHotelDTO patchHotelDTO, @MappingTarget Hotel hotel);
