@@ -1,0 +1,187 @@
+* {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    padding: 10px;
+    text-align: center;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+body {
+    background: var(--quaternary-color);
+}
+
+
+
+#Principal {
+    margin: 40px;
+}
+
+
+footer {
+    background-color: var(--primary-color);
+    text-align: center;
+    padding: 5px;
+}
+
+.navbar {
+    overflow: hidden;
+    text-align: center;
+    color: var(--senary-color);
+    background-color: var(--primary-color);
+}
+
+
+
+.navbar ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar li {
+    padding: 1px 3px;
+}
+
+
+.navbar li a {
+    color: black;
+    padding: 15px 20px;
+    display: block;
+    border: 3px solid var(--tertiary-color);
+    border-radius: 25px;
+}
+
+.navbar li a:hover {
+    background-color: var(--secondary-color);
+}
+
+
+.hotels {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 16px 8px;
+}
+
+.hotel-card {
+    border: 3px solid var(--tertiary-color);
+    border-radius: 8px;
+    margin: 20px;
+    background-color: #ffffff;
+}
+
+.hotel-link {
+    text-decoration: none;
+    color: inherit;
+
+}
+
+
+.hotel-details {
+    border-top: 1px dotted var(--quinary-color);
+    padding: 8px;
+}
+
+.hotel-image {
+    max-width: fit-content;
+    height: 180px;
+    width: 240px;
+    border-radius: 4px;
+}
+
+.hotel-link{
+    color: black;
+}
+
+.hotel-title {
+    font-size: 22px;
+    font-style: oblique;
+    font-weight: 300;
+    padding: 8px;
+}
+
+.hotel-description {
+    color: rgb(53, 52, 52);
+    font-size: small;
+    padding: 5px;
+}
+
+.services {
+    font-size: 14px;
+}
+
+.services ul {
+    list-style-type: none;
+}
+
+.price {
+    font-size: 14px;
+    padding: 7px;
+}
+
+.search-bar{
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    margin: 15px 10px;
+}
+
+.search-bar-text{
+    width: 300px;
+    height: 30px;
+    border: 3px solid var(--tertiary-color);
+    border-radius: 5px;
+    flex-direction: column;
+    flex: 1;
+    margin-right: 5px;
+}
+
+#searchInput{
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+#search-bar-button{
+    width: 100px;
+    height: 30px;
+    border: 3px solid var(--tertiary-color);
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 2px;
+}
+
+
+
+
+
+
+
+
+:root{
+    --primary-color: rgb(94, 80, 63);
+    --secondary-color: rgb(198, 172, 143);
+    --tertiary-color: rgb(34, 51, 59);
+    --quaternary-color: rgb(234, 224, 213);
+    --quinary-color: rgb(20, 68, 20);
+    --senary-color: rgb(10, 9, 8);
+}
+
+html:root{
+    --primary-color: rgb(94, 80, 63);
+    --secondary-color: rgb(198, 172, 143);
+    --tertiary-color: rgb(34, 51, 59);
+    --quaternary-color: rgb(234, 224, 213);
+    --quinary-color: rgb(20, 68, 20);
+    --senary-color: rgb(10, 9, 8);
+}

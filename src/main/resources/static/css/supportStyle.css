@@ -1,0 +1,76 @@
+* {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: var(--primary-color);
+    padding: 10px;
+    text-align: center;
+    font-size: 15px;
+}
+
+body {
+    background-color: var(--quaternary-color);
+}
+
+main{
+    margin: 20px 10px;
+}
+
+.questions {
+    margin: 25px 15px;
+}
+
+.questions ol {
+    list-style: none;
+}
+
+.questions ol li {
+    margin: 25px 5px;
+    padding: 2px;
+}
+
+.Home a:hover {
+    background-color: var(--secondary-color);
+}
+
+.Home a {
+    color: black;
+    text-decoration: none;
+}
+
+section article h3 {
+    text-align: left;
+    margin: 10px 0;
+}
+
+.cards{
+    max-width: fit-content;
+    border-radius: 8px;
+    box-shadow: 2px 4px 8px 0 black;
+    background-color: var(--secondary-color);
+    padding: 8px;
+}
+
+
+
+
+:root{
+    --primary-color: rgb(94, 80, 63);
+    --secondary-color: rgb(198, 172, 143);
+    --tertiary-color: rgb(34, 51, 59);
+    --quaternary-color: rgb(234, 224, 213);
+    --quinary-color: rgb(20, 68, 20);
+    --senary-color: rgb(10, 9, 8);
+}
+
+html:root{
+    --primary-color: rgb(94, 80, 63);
+    --secondary-color: rgb(198, 172, 143);
+    --tertiary-color: rgb(34, 51, 59);
+    --quaternary-color: rgb(234, 224, 213);
+    --quinary-color: rgb(20, 68, 20);
+    --senary-color: rgb(10, 9, 8);
+}
