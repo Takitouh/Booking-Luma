@@ -1,6 +1,5 @@
-
 //Fetch to the REST API
-console.log("Iniciando fetch de hoteles...");
+
 
 fetch('/api/v1/hotels/get')
     .then(res => {
@@ -35,6 +34,12 @@ fetch('/api/v1/hotels/get')
             link.href = "/hotel.html?id=" + hotel.id;
             link.className = "hotel-link";
 
+            const img = document.createElement("img");
+            img.src = "/api/v1/hotels/downloadImage/" + hotel.id;
+            console.log("/api/v1/hotels/downloadImage/" + hotel.id)
+            img.alt = "Hotel photo";
+            img.className = "hotel-image"
+            link.appendChild(img)
 
             link.appendChild(title)
             link.appendChild(desc)
@@ -45,7 +50,12 @@ fetch('/api/v1/hotels/get')
             container.appendChild(card);
         });
 
-})
+    })
     .catch(err => console.error('Failed trying get the hotels:', err));
+
+
+
+
+
 
 
