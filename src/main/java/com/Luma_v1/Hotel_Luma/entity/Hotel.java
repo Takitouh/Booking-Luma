@@ -33,6 +33,14 @@ public class Hotel {
     private LocalTime scheduleDayUseStart; // e.g., 8:00
     private LocalTime scheduleDayUseEnd; // e.g., 20:00
 
+    //attributes for img
+    private String nameContent;
+    private String typeContent;
+
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
+    private byte[] imageContent; // Store image as byte array
+
     @OneToMany(mappedBy = "hotel")
     private List<Room> rooms = new ArrayList<>();
 }

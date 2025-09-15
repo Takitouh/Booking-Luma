@@ -9,12 +9,17 @@ import com.Luma_v1.Hotel_Luma.mapper.HotelMapper;
 import com.Luma_v1.Hotel_Luma.repository.IRepositoryHotel;
 import com.Luma_v1.Hotel_Luma.service.IServiceHotel;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class ServiceHotel implements IServiceHotel {
 
@@ -87,4 +92,38 @@ public class ServiceHotel implements IServiceHotel {
 
         return hotelMapper.toResponseDTO(oldHotel);
     }
+
+    @Override
+    public String uploadHotelImage(MultipartFile file, Long idHotel) throws IOException {
+        Hotel hotel = hotelRepository.findById(idHotel).orElseThrow(EntityNotFoundException::new);
+        log.info("Size: {}", file.getSize());
+
+        hotel.setNameContent(file.getName());
+        hotel.setTypeContent(file.getContentType());
+        hotel.setImageContent(file.getBytes());
+
+        hotelRepository.save(hotel);
+        return "The image has been uploaded";
+    }
+
+    @Override
+    public Hotel downloadHotelImage(Long idHotel) {
+
+        return hotelRepository.findById(idHotel).orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
+    public ResponseHotelDTO findByName(String name) throws BadRequestException {
+        if (name == null) {
+            throw new BadRequestException();
+        } else if (name.isEmpty()) {
+            throw new BadRequestException();
+        }
+
+        name = name.trim();
+
+        return hotelMapper.toResponseDTO(hotelRepository.findByName(name));
+    }
+
+
 }

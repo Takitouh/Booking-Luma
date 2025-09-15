@@ -4,7 +4,12 @@ import com.Luma_v1.Hotel_Luma.dto.CreateHotelDTO;
 import com.Luma_v1.Hotel_Luma.dto.PatchHotelDTO;
 import com.Luma_v1.Hotel_Luma.dto.PutHotelDTO;
 import com.Luma_v1.Hotel_Luma.dto.ResponseHotelDTO;
+import com.Luma_v1.Hotel_Luma.entity.Hotel;
+import org.apache.coyote.BadRequestException;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface IServiceHotel {
@@ -13,6 +18,7 @@ public interface IServiceHotel {
     ResponseHotelDTO findById(Long id);
 
     ResponseHotelDTO save(CreateHotelDTO hotel);
+
     List<ResponseHotelDTO> saveAll(List<CreateHotelDTO> hotels);
 
     void deleteById(Long id);
@@ -20,4 +26,10 @@ public interface IServiceHotel {
     ResponseHotelDTO updateWithPut(PutHotelDTO hotel, Long id);
 
     ResponseHotelDTO updateWithPatch(PatchHotelDTO hotel, Long id);
+
+    String uploadHotelImage(MultipartFile file, Long idHotel) throws IOException;
+
+    Hotel downloadHotelImage(Long idHotel);
+
+    ResponseHotelDTO findByName(String name) throws BadRequestException;
 }
