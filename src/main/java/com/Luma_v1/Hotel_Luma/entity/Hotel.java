@@ -1,5 +1,6 @@
 package com.Luma_v1.Hotel_Luma.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,9 +18,9 @@ public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String location;
 
     @ElementCollection
@@ -27,14 +28,20 @@ public class Hotel {
     @Column(name = "amenity")
     private Set<String> amenities = new HashSet<>(); // e.g., WiFi, Pool, Gym
 
+    @Column(nullable = false)
     private LocalTime scheduleCheckIn; // e.g., 14:00
+    @Column(nullable = false)
     private LocalTime scheduleCheckOut; // e.g., 10:00
 
+    @Column(nullable = false)
     private LocalTime scheduleDayUseStart; // e.g., 8:00
+    @Column(nullable = false)
     private LocalTime scheduleDayUseEnd; // e.g., 20:00
 
     //attributes for img
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String nameContent;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String typeContent;
 
     @Lob

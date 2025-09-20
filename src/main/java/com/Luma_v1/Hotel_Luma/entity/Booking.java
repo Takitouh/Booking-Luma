@@ -1,5 +1,6 @@
 package com.Luma_v1.Hotel_Luma.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class Booking {
     @Enumerated(EnumType.STRING)
     private BookingType type;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private BigDecimal totalPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
