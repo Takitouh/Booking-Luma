@@ -122,7 +122,11 @@ public class ServiceHotel implements IServiceHotel {
 
         name = name.trim();
 
-        return hotelMapper.toResponseDTO(hotelRepository.findByName(name));
+        Hotel hotel = hotelRepository.findByName(name);
+
+//        hotel = hotel == null? new Hotel() : hotel;
+
+        return hotelMapper.toResponseDTO(hotel);
     }
 
 
