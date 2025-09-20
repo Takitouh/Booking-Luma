@@ -1,0 +1,119 @@
+/* Variables de color igual que en mainStyle.css */
+:root {
+    --primary-color: rgb(94, 80, 63);
+    --secondary-color: rgb(198, 172, 143);
+    --tertiary-color: rgb(34, 51, 59);
+    --quaternary-color: rgb(234, 224, 213);
+    --quinary-color: rgb(20, 68, 20);
+    --senary-color: rgb(10, 9, 8);
+}
+
+* {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    padding: 10px;
+    text-align: center;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+body {
+    background: var(--quaternary-color);
+}
+
+#results {
+    margin: 40px;
+}
+
+footer {
+    background-color: var(--primary-color);
+    text-align: center;
+    padding: 5px;
+    color: white;
+}
+
+.navbar {
+    overflow: hidden;
+    text-align: center;
+    color: var(--senary-color);
+    background-color: var(--primary-color);
+}
+
+.navbar ul {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.navbar li {
+    padding: 1px 3px;
+}
+
+.navbar li a {
+    color: black;
+    padding: 15px 20px;
+    display: block;
+    border: 3px solid var(--tertiary-color);
+    border-radius: 25px;
+    background: var(--primary-color);
+    margin: 0 5px;
+    text-decoration: none;
+}
+
+.navbar li a:hover {
+    background-color: var(--secondary-color);
+}
+
+.hotels {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 16px 8px;
+}
+
+.hotel-card {
+    border: 3px solid var(--tertiary-color);
+    border-radius: 8px;
+    margin: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/*.hotel-card:hover {*/
+/*    box-shadow: 0 8px 24px rgba(0,0,0,0.15);*/
+/*}*/
+
+.hotel-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.hotel-info {
+    padding: 16px;
+    text-align: center;
+}
+
+.hotel-image {
+    height: 180px;
+    width: 240px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.hotel-title {
+    font-size: 1.2em;
+    margin-bottom: 8px;
+}
+
+.hotel-description {
+    color: #333;
+    font-size: 1em;
+    padding: 5px;
+}
