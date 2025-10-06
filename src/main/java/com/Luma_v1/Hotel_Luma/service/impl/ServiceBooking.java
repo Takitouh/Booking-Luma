@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,26 +113,13 @@ public class ServiceBooking implements IServiceBooking {
         return bookingMapper.toResponseDTO(oldBooking);
     }
 
-    public void calculateTotalPriceBooking(Booking booking) {
-        if (booking.getType() == Booking.BookingType.OVERNIGHT) {
-            calculateTotalPriceBookingNormalFee(booking);
-        } else if (booking.getType() == Booking.BookingType.DAY_USE) {
-            calculateTotalPriceBookingDayUseFee(booking);
-        }
+
+    private void calculateTotalPriceBooking(Booking booking) {
+        final BigDecimal fee = booking.getRoom().getFee();
+        long diffInDays = ChronoUnit.DAYS.between(booking.getCheckIn(), booking.getCheckOut());
+        booking.setTotalPrice(fee.multiply(java.math.BigDecimal.valueOf(diffInDays)));
     }
 
-    private void calculateTotalPriceBookingNormalFee(Booking booking) {
-        final BigDecimal normalFee = booking.getRoom().getNormalFee();
-        long diffInHours = java.time.Duration.between(booking.getCheckIn(), booking.getCheckOut()).toHours();
-        long diffInDays = diffInHours / 24;
-        if (diffInHours % 24 != 0) diffInDays++; // Round up to the next day if there are remaining hours
-        booking.setTotalPrice(normalFee.multiply(java.math.BigDecimal.valueOf(diffInDays)));
-    }
-
-    private void calculateTotalPriceBookingDayUseFee(Booking booking) {
-        final BigDecimal dayUseFee = booking.getRoom().getDayUseFee();
-        booking.setTotalPrice(dayUseFee);
-    }
 
     private void validateBookingDateCrossingAndCalculateTotal(Booking booking) {
         Integer nBooking = bookingRepository.givenCheckInAndCheckOutAndRoomID_CheckValidBookingDate(booking.getRoom().getId(), booking.getCheckIn(), booking.getCheckOut());
@@ -142,14 +129,13 @@ public class ServiceBooking implements IServiceBooking {
     }
 
     private void logBooking(Booking booking) {
-        LocalDateTime checkIn = booking.getCheckIn();
-        LocalDateTime checkOut = booking.getCheckOut();
+        LocalDate checkIn = booking.getCheckIn();
+        LocalDate checkOut = booking.getCheckOut();
         Long days = ChronoUnit.DAYS.between(checkIn, checkOut);
-        log.info("Booking Details: ID={}, CheckIn={}, CheckOut={}, Type={}, Status={}, TotalPrice={}, GuestID={}, RoomID={}, Days={}",
+        log.info("Booking Details: ID={}, CheckIn={}, CheckOut={}, Status={}, TotalPrice={}, GuestID={}, RoomID={}, Days={}",
                 booking.getId(),
                 booking.getCheckIn(),
                 booking.getCheckOut(),
-                booking.getType(),
                 booking.getStatus(),
                 booking.getTotalPrice(),
                 booking.getGuest() != null ? booking.getGuest().getId() : null,
