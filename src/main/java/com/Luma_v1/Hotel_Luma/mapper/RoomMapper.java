@@ -15,8 +15,7 @@ public abstract class RoomMapper {
     protected IRepositoryHotel repositoryHotel;
     //# DTO for response when one or more hotels are required, the rooms haven't the hotel name
     @Mapping(source = "number", target = "number")
-    @Mapping(source = "normalFee", target = "normalFee")
-    @Mapping(source = "dayUseFee", target = "dayUseFee")
+    @Mapping(source = "fee", target = "fee")
     public abstract ResponseRoomDTO toResponseRoomHotelDTO(Room room);
     //# DTO for response when one or more room are specified, it has the hotel name
     @Mapping(source = "number", target = "number")
@@ -24,24 +23,21 @@ public abstract class RoomMapper {
     public abstract ResponseRoomHotelNameDTO toResponseRoomHotelNameDTO(Room room);
 
     @Mapping(source = "number", target = "number")
-    @Mapping(source = "normalFee", target = "normalFee")
-    @Mapping(source = "dayUseFee", target = "dayUseFee")
+    @Mapping(source = "fee", target = "fee")
     @Mapping(source = "idHotel", target = "hotel")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "bookings", ignore = true)
     public abstract Room toEntity(CreateRoomDTO createRoomDTO);
 
     @Mapping(source = "number", target = "number")
-    @Mapping(source = "normalFee", target = "normalFee")
-    @Mapping(source = "dayUseFee", target = "dayUseFee")
+    @Mapping(source = "fee", target = "fee")
     @Mapping(source = "idHotel", target = "hotel")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "bookings", ignore = true)
     public abstract Room toEntity(PutRoomDTO putRoomDTO);
 
     @Mapping(source = "number", target = "number")
-    @Mapping(source = "normalFee", target = "normalFee")
-    @Mapping(source = "dayUseFee", target = "dayUseFee")
+    @Mapping(source = "fee", target = "fee")
     @Mapping(source = "idHotel", target = "hotel")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "bookings", ignore = true)
