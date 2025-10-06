@@ -11,8 +11,6 @@ public record ResponseHotelDTO(
     String location,
     LocalTime scheduleCheckIn,
     LocalTime scheduleCheckOut,
-    LocalTime scheduleDayUseStart,
-    LocalTime scheduleDayUseEnd,
     List<ResponseRoomDTO> rooms,
     Set<String> amenities
 ) {}

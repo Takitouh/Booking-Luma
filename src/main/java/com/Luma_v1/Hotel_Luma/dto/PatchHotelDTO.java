@@ -10,8 +10,6 @@ public record PatchHotelDTO(
         String location,
         LocalTime scheduleCheckIn,
         LocalTime scheduleCheckOut,
-        LocalTime scheduleDayUseStart,
-        LocalTime scheduleDayUseEnd,
         List<CreateRoomDTO> rooms,
         Set<String> amenities
 ) {

@@ -15,10 +15,6 @@ public record CreateHotelDTO(
         LocalTime scheduleCheckIn,
         @NotNull(message = "Schedule check-out can't be null")
         LocalTime scheduleCheckOut,
-        @NotNull(message = "Schedule day use start can't be null")
-        LocalTime scheduleDayUseStart,
-        @NotNull(message = "Schedule day use end can't be null")
-        LocalTime scheduleDayUseEnd,
         Set<String> amenities
 ) {
 }
