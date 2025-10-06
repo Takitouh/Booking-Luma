@@ -33,7 +33,7 @@ public class ServiceHotel implements IServiceHotel {
 
     @Override
     public List<ResponseHotelDTO> findAll() {
-        return hotelRepository.findAll().stream().map(hotel -> hotelMapper.toResponseDTO(hotel)).collect(Collectors.toList());
+        return hotelRepository.findAllHotels().stream().map(hotel -> hotelMapper.toResponseDTO(hotel)).collect(Collectors.toList());
     }
 
     @Override
