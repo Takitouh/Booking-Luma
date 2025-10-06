@@ -2,6 +2,7 @@ package com.Luma_v1.Hotel_Luma.controller;
 
 import com.Luma_v1.Hotel_Luma.dto.*;
 import com.Luma_v1.Hotel_Luma.service.IServiceGuest;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,11 @@ public class ControllerGuest {
     @PostMapping("/postBatch")
     public ResponseEntity<List<ResponseGuestDTO>> createGuests(@RequestBody List<CreateGuestDTO> guests) {
         return new ResponseEntity<>(guestService.saveAll(guests), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/post-booking-guest")
+    public ResponseEntity<ResponseGuestDTO> createNonExistingGuestOrReturnExistingGuest(@Valid @RequestBody CreateGuestDTO guest, @RequestParam String email) {
+        return new ResponseEntity<>(guestService.createNewGuest(email, guest), HttpStatus.CREATED);
     }
 
     @PutMapping("/put/{id}")

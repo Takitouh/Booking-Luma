@@ -10,11 +10,17 @@ public interface IServiceGuest {
     ResponseGuestDTO findById(Long id);
 
     ResponseGuestDTO save(CreateGuestDTO guest);
+
     List<ResponseGuestDTO> saveAll(List<CreateGuestDTO> guests);
+
+    //This method will check if guest exists according to his email, if it exists it will return the guest
+    //Else will create a new guest
+    ResponseGuestDTO createNewGuest(String email, CreateGuestDTO newGuest);
 
     void deleteById(Long id);
 
     ResponseGuestDTO updateWithPut(PutGuestDTO guest, Long id);
+
     ResponseGuestDTO updateWithPatch(PatchGuestDTO guest, Long id);
 
     List<ResponseRoomNumAndBookingDateDTO> findBookingDateAndRoomNumAndGuestNameByGuestEmail(String email);
