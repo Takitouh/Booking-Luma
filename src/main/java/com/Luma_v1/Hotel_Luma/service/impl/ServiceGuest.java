@@ -6,12 +6,14 @@ import com.Luma_v1.Hotel_Luma.mapper.GuestMapper;
 import com.Luma_v1.Hotel_Luma.repository.IRepositoryGuest;
 import com.Luma_v1.Hotel_Luma.service.IServiceGuest;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class ServiceGuest implements IServiceGuest {
 
@@ -53,6 +55,18 @@ public class ServiceGuest implements IServiceGuest {
             responses.add(guestMapper.toResponseDTO(guest));
         }
         return responses;
+    }
+
+    //Check if any guest have the email, if true so it returns it, else will create a new guest
+    @Override
+    public ResponseGuestDTO createNewGuest(String email, CreateGuestDTO newGuest) {
+        Guest guest = guestRepository.findByEmail(email);
+        if (guest != null) {
+            log.info("Guest with email {} already exists", email);
+            return guestMapper.toResponseDTO(guest);
+        }
+        ResponseGuestDTO responseGuestDTO = this.save(newGuest);
+        return responseGuestDTO;
     }
 
     @Override
