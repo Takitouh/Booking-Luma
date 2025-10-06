@@ -20,7 +20,8 @@ public class Hotel {
     private Long id;
     @Column(nullable = false, unique = true)
     private String name;
-    @Column(nullable = false, unique = true)
+    private String description;
+    @Column(nullable = false)
     private String location;
 
     @ElementCollection
@@ -33,10 +34,6 @@ public class Hotel {
     @Column(nullable = false)
     private LocalTime scheduleCheckOut; // e.g., 10:00
 
-    @Column(nullable = false)
-    private LocalTime scheduleDayUseStart; // e.g., 8:00
-    @Column(nullable = false)
-    private LocalTime scheduleDayUseEnd; // e.g., 20:00
 
     //attributes for img
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
