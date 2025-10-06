@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -17,16 +17,13 @@ public class Booking {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDateTime checkIn;
+    private LocalDate checkIn;
 
     @Column(nullable = false)
-    private LocalDateTime checkOut;
+    private LocalDate checkOut;
 
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
-
-    @Enumerated(EnumType.STRING)
-    private BookingType type;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private BigDecimal totalPrice;
@@ -40,10 +37,7 @@ public class Booking {
     private Guest guest;
 
     public enum BookingStatus {
-        PENDING, CANCELLED, COMPLETED
+         CANCELLED, COMPLETED
     }
 
-    public enum BookingType {
-        DAY_USE, OVERNIGHT
-    }
 }
