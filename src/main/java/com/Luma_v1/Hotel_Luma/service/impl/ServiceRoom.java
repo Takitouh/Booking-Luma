@@ -69,11 +69,10 @@ public class ServiceRoom implements IServiceRoom {
 
         oldRoom.setHotel(newRoom.getHotel());
         oldRoom.setNumber(newRoom.getNumber());
-        oldRoom.setNormalFee(newRoom.getNormalFee());
+        oldRoom.setFee(newRoom.getFee());
         oldRoom.setBookings(newRoom.getBookings());
 
         roomRepository.save(oldRoom);
-
 
         return roomMapper.toResponseRoomHotelNameDTO(oldRoom);
     }
@@ -85,7 +84,7 @@ public class ServiceRoom implements IServiceRoom {
 
         oldRoom.setHotel(newRoom.getHotel() != null ? newRoom.getHotel() : oldRoom.getHotel());
         oldRoom.setNumber(newRoom.getNumber() != null ? newRoom.getNumber() : oldRoom.getNumber());
-        oldRoom.setNormalFee(newRoom.getNormalFee() != null ? newRoom.getNormalFee() : oldRoom.getNormalFee());
+        oldRoom.setFee(newRoom.getFee() != null ? newRoom.getFee() : oldRoom.getFee());
         oldRoom.setBookings(newRoom.getBookings() != null ? newRoom.getBookings() : oldRoom.getBookings());
 
         roomRepository.save(oldRoom);

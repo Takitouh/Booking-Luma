@@ -18,9 +18,7 @@ public class Room {
     @Column(unique = true, nullable = false)
     private String number;
     @Column(nullable = false)
-    private BigDecimal normalFee; // Fee for staying overnight, with check-in
-    @Column(nullable = false)
-    private BigDecimal dayUseFee; //Fee for using the room during the day, without overnight stay
+    private BigDecimal fee;
 
     @ManyToOne
     private Hotel hotel;

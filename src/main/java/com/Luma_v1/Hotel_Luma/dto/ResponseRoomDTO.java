@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 public record ResponseRoomDTO(
         Long id,
         String number,
-        BigDecimal normalFee,
-        BigDecimal dayUseFee
+        BigDecimal fee
 ) {
 }
