@@ -13,28 +13,87 @@
     <h1 id="hotel-name"></h1>
 </header>
 
+
 <div class="hotel-information-container">
 
-<div class="hotel-details">
+    <div class="hotel-details">
 
-<section>
-    <h4 class="hotel-details-tittle">Description: </h4>
-    <p id="hotel-description"></p>
-    <h4 class="hotel-details-tittle">Location: </h4>
-    <p id="hotel-location"></p>
-    <h4 class="hotel-details-tittle">Schedules of day use: </h4>
-    <p id="hotel-schedule-day-use"></p>
-    <h4 class="hotel-details-tittle">Schedules of Check In and Check Out: </h4>
-    <p id="hotel-schedule-checking-checkout"></p>
-</section>
+        <section>
+            <h4 class="hotel-details-tittle">Description: </h4>
+            <p id="hotel-description"></p>
+            <h4 class="hotel-details-tittle">Location: </h4>
+            <p id="hotel-location"></p>
+            <h4 class="hotel-details-tittle">Schedules of Check In and Check Out: </h4>
+            <p id="hotel-schedule-checking-checkout"></p>
+        </section>
 
+    </div>
+
+    <div class="hotel-amenities">
+        <h4 class="hotel-amenities-item-title">Services: </h4>
+        <ul id="hotel-amenities-list">
+        </ul>
+    </div>
 </div>
 
-<div class="hotel-amenities">
-    <h4 class="hotel-amenities-item-title">Services: </h4>
-    <ul id="hotel-amenities-list">
-    </ul>
+<div class="hotel__booking-field">
+    <div class="hotel__booking-field-input">
+        <div id="hotel-checking__error" class="error-input"></div>
+        <label for="check-in">Check in</label>
+        <input type="date" id="check-in" name="check-in" class="hotel__booking-field-date">
+    </div>
+
+    <div class="hotel__booking-field-input">
+        <div id="hotel-checkout__error" class="error-input"></div>
+        <label for="check-out">Check out</label>
+        <input type="date" id="check-out" name="check-out" class="hotel__booking-field-date">
+    </div>
 </div>
+
+<div class="guest-info-section">
+    <div class="guest-info-section__input">
+        <div id="guest-first-name__error" class="error-input"></div>
+        <label for="first-name">First name</label><input id="first-name" type="text">
+    </div>
+    <div class="guest-info-section__input">
+        <div id="guest-last-name__error" class="error-input"></div>
+        <label for="last-name">Last name</label><input id="last-name" type="text">
+    </div>
+    <div class="guest-info-section__input">
+        <div id="guest-email__error" class="error-input"></div>
+        <label for="guest-email">Email</label><input id="guest-email" type="email">
+    </div>
+    <div class="guest-info-section__input">
+        <div id="guest-phone__error" class="error-input"></div>
+        <label for="guest-phone">Phone</label><input id="guest-phone" type="tel">
+    </div>
+</div>
+
+<div class="booking-section">
+
+    <div id="booking-room_error" class="error-input"></div>
+    <table id="hotel__booking-rooms-table">
+
+        <thead id="hotel__booking-rooms-table-header">
+        <tr class="hotel__booking-room">
+            <th class="hotel__booking-rooms-header">
+                Rooms available
+            </th>
+            <th class="hotel__booking-rooms-header">
+                Rooms prices
+            </th>
+        </tr>
+        </thead>
+
+        <tbody id="hotel__booking-rooms-table-body">
+        <tr class="hotel__booking-room" id="hotel__booking-room">
+
+
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="button" id="hotel__booking-field-button">Book</button>
 </div>
 
 <a id="go-back" href="index.html">Go back</a>

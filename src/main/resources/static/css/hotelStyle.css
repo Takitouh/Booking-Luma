@@ -68,6 +68,85 @@ body {
     padding: 9px;
 }
 
+/*Booking section*/
+
+.booking-section{
+    margin: 1.4rem;
+
+}
+
+/* Calendars checkIn and checkOut */
+
+.hotel__booking-field {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 1.5rem .8rem;
+    padding: .8rem;
+}
+
+.hotel__booking-field-input{
+    flex: none;
+    width: fit-content;
+    margin: 0 2.5rem;
+}
+
+.hotel__booking-field-date{
+    background-color: var(--secondary-color);
+}
+
+/**/
+
+.guest-info-section{
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+}
+.guest-info-section__input{
+    padding: 0 10px;
+    flex: fit-content;
+    flex-wrap: wrap;
+}
+
+#hotel__booking-rooms-table{
+    margin: 20px;
+    flex: 2;
+}
+
+.hotel__booking-rooms-header, .hotel__booking-room-numbers, .hotel__booking-room-price{
+    width: 25rem;
+    height: 2rem;
+    border-bottom: black solid 2px;
+    border-right: black solid 2px;
+}
+
+#hotel__booking-field-button{
+    color: white;
+    background-color: var(--primary-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 0.5rem;
+    height: fit-content;
+
+}
+
+/* Guest inputs */
+
+#first-name, #last-name, #guest-email, #guest-phone{
+    width: 100%;
+}
+
+/* Validation spans */
+
+.error-input{
+    color: rgba(255, 0, 0, 0.65);
+    font-style: italic;
+    text-align: center;
+    font-size: small;
+    height: 1rem;
+}
+
+/*Go back button*/
+
 #go-back{
     text-decoration: none;
     color: black;
@@ -82,15 +161,6 @@ body {
 
 
 :root{
-    --primary-color: rgb(94, 80, 63);
-    --secondary-color: rgb(198, 172, 143);
-    --tertiary-color: rgb(34, 51, 59);
-    --quaternary-color: rgb(234, 224, 213);
-    --quinary-color: rgb(20, 68, 20);
-    --senary-color: rgb(10, 9, 8);
-}
-
-html:root{
     --primary-color: rgb(94, 80, 63);
     --secondary-color: rgb(198, 172, 143);
     --tertiary-color: rgb(34, 51, 59);
