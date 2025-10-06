@@ -23,7 +23,7 @@ public class Guest {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String phone;
 
     @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL)
