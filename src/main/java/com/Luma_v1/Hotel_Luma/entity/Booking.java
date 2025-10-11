@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -28,6 +31,18 @@ public class Booking {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private BigDecimal totalPrice;
 
+    private String method = "paypal"; //Hardcode method, currency and intent for now
+
+    private String currency = "USD";
+
+    private String intent = "sale";
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
@@ -37,7 +52,7 @@ public class Booking {
     private Guest guest;
 
     public enum BookingStatus {
-         CANCELLED, COMPLETED
+         CANCELLED, COMPLETED, PENDING
     }
 
 }
