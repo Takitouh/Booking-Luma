@@ -20,5 +20,14 @@ public interface IServiceBooking {
 
     ResponseBookingDTO updateWithPut(PutBookingDTO booking, Long id);
 
+    void updateStatusPaymentToCompleted(Long idBooking);
+
+    void updateStatusPaymentToCanceled(Long idBooking);
+
+    int jobDeletionOfBookingStatusCancelled();
+
+    int jobUpdateOfBookingStatusPendingToCancelled(int expMin);
+
+
     ResponseBookingDTO updateWithPatch(PatchBookingDTO booking, Long id);
 }

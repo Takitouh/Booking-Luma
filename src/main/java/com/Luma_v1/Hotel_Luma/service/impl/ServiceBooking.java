@@ -97,6 +97,34 @@ public class ServiceBooking implements IServiceBooking {
     }
 
     @Override
+    public void updateStatusPaymentToCompleted(Long idBooking) {
+        Booking booking = bookingRepository.findById(idBooking).orElseThrow(EntityNotFoundException::new);
+        booking.setStatus(Booking.BookingStatus.COMPLETED);
+        log.info("Booking with ID: {} completed its payment.", idBooking);
+        bookingRepository.save(booking);
+    }
+
+    @Override
+    public void updateStatusPaymentToCanceled(Long idBooking) {
+        Booking booking = bookingRepository.findById(idBooking).orElseThrow(EntityNotFoundException::new);
+        booking.setStatus(Booking.BookingStatus.CANCELLED);
+        log.info("Booking with ID: {} canceled its payment.", idBooking);
+        bookingRepository.save(booking);
+    }
+
+    @Override
+    public int jobDeletionOfBookingStatusCancelled() {
+        log.info("Executing jobDeletionOfBookingStatusCancelled");
+        return bookingRepository.jobDeletionOfBookingStatusCancelled();
+    }
+
+    @Override
+    public int jobUpdateOfBookingStatusPendingToCancelled(int expMin) {
+        log.info("Executing jobUpdateOfBookingStatusPendingToCancelled");
+        return bookingRepository.jobUpdateOfBookingStatusPendingToCancelled(expMin);
+    }
+
+    @Override
     public ResponseBookingDTO updateWithPatch(PatchBookingDTO booking, Long id) {
         Booking oldBooking = bookingRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         Booking newBooking = bookingMapper.toEntity(booking, oldBooking);
