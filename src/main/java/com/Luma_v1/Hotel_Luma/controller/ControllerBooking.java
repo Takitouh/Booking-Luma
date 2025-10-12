@@ -9,7 +9,6 @@ import com.Luma_v1.Hotel_Luma.service.IServiceBooking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,7 +45,6 @@ public class ControllerBooking {
         return new ResponseEntity<>(bookingService.save(booking), HttpStatus.CREATED);
     }
 
-    @Transactional
     @PostMapping("/postBatch")
     public ResponseEntity<List<ResponseBookingDTO>> createBookings(@RequestBody List<CreateBookingDTO> booking) {
         return new ResponseEntity<>(bookingService.saveAll(booking), HttpStatus.CREATED);
@@ -81,6 +79,12 @@ public class ControllerBooking {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PostMapping("/cancel-booking")
+    public ResponseEntity<Void> cancelBooking(@RequestParam Long idBooking) {
+        bookingService.updateStatusPaymentToCanceled(idBooking);
+        return ResponseEntity.ok().build();
     }
 
 }
