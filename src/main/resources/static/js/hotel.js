@@ -3,7 +3,7 @@ const params = new URLSearchParams(window.location.search);
 const hotelId = params.get("id");
 
 const buttonOk = document.getElementById("hotel__booking-field-button");
-buttonOk.addEventListener("click", createBooking)
+buttonOk.addEventListener("click", createPayment)
 
 //Will apply for check if the guest already exist to return it or create a new one
 async function handleGuestInformation() {
@@ -47,7 +47,9 @@ async function createBooking() {
     const idGuest = await handleGuestInformation()
     const idRoom = returnSelectedRoomID();
 
-    fetch('api/v1/bookings/post', {
+    console.log("Antes de hacer la reserva del hotel")
+
+    return fetch('api/v1/bookings/post', {
 
         // Adding method type
         method: "POST",
@@ -56,7 +58,7 @@ async function createBooking() {
         body: JSON.stringify({
             checkIn: checkIn.value,
             checkOut: checkOut.value,
-            status: "COMPLETED",
+            status: "PENDING",
             roomId: idRoom,
             guestId: idGuest
         }),
@@ -66,11 +68,43 @@ async function createBooking() {
             "Content-type": "application/json; charset=UTF-8"
         }
     })
-        .then(res => {
+        .then(async res => {
                 if (!res.ok) throw new Error("Error creating booking.")
-                return res.json()
+                const booking = await res.json()
+                console.log(booking)
+                return booking
             }
         )
+}
+
+async function createPayment() {
+    const booking = await createBooking()
+
+    console.log("Antes de hacer el pago")
+
+    console.log("Booking:", booking)
+
+    console.log(typeof booking)
+
+    fetch('api/v1/payment/create-payment', {
+        // Adding method type
+        method: "POST",
+
+        // Adding parameters of the booking
+        body: JSON.stringify(booking),
+
+        // Adding headers to the request
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    }).then(async resPay => {
+            if (!resPay.ok) throw new Error("Error payment")
+            const paymentUrl = await resPay.text()
+            console.log(paymentUrl)
+            location.href = paymentUrl
+        }
+    )
+
 }
 
 //Fetch to the REST API to obtain the information of hotel
@@ -99,11 +133,11 @@ fetch(`/api/v1/hotels/get/${hotelId}`).then(res => res.json())
             amenitiesList.appendChild(amenity);
         }
 
-            const roomTable = document.getElementById("hotel__booking-rooms-table")
+        const roomTable = document.getElementById("hotel__booking-rooms-table")
 
-            hotel.rooms.forEach(roomHotel => {
-                constructorOfRoom(roomHotel, roomTable);
-            })
+        hotel.rooms.forEach(roomHotel => {
+            constructorOfRoom(roomHotel, roomTable);
+        })
 
     });
 
@@ -169,46 +203,46 @@ function validationInputGuest() {
 
     //Check if the inputs aren't undefined and have a minimum of characters
 
-    if (checkIn === undefined || checkIn.length === 0){
+    if (checkIn === undefined || checkIn.length === 0) {
         errorMsgCheckIn.textContent = "Please select a check in date."
         flag = true;
-    } else{
+    } else {
         errorMsgCheckIn.textContent = ""
     }
-    if (checkOut === undefined || checkOut.length === 0){
+    if (checkOut === undefined || checkOut.length === 0) {
         errorMsgCheckOut.textContent = "Please select a check out date."
         flag = true;
-    } else{
+    } else {
         errorMsgCheckOut.textContent = ""
     }
 
-    if (guestFirstName === undefined || guestFirstName.length < 2){
+    if (guestFirstName === undefined || guestFirstName.length < 2) {
         errorMsgFirstName.textContent = "First name can't must have at least 3 letters."
         flag = true;
-    } else{
+    } else {
         errorMsgFirstName.textContent = ""
     }
-    if (guestLastName === undefined ||guestLastName.length < 2){
+    if (guestLastName === undefined || guestLastName.length < 2) {
         errorMsgLastName.textContent = "Last name can't must have at least 3 letters."
         flag = true;
-    } else{
+    } else {
         errorMsgLastName.textContent = ""
     }
-    if (guestEmail === undefined || guestEmail.length < 5 || !guestEmail.includes("@")){
+    if (guestEmail === undefined || guestEmail.length < 5 || !guestEmail.includes("@")) {
         errorMsgEmail.textContent = "Email not valid."
         flag = true;
-    }  else{
+    } else {
         errorMsgEmail.textContent = ""
     }
-    if (guestPhone === undefined || guestPhone.length !== 10){
+    if (guestPhone === undefined || guestPhone.length !== 10) {
         errorMsgPhone.textContent = "Phone must have 10 digits."
         flag = true;
-    } else{
+    } else {
         errorMsgPhone.textContent = ""
     }
 
     //Check for selected room
-    if (idRoom === undefined || idRoom === -1){
+    if (idRoom === undefined || idRoom === -1) {
         errorMsgRoomSelection.textContent = "Please select a room."
         flag = true;
     } else {
