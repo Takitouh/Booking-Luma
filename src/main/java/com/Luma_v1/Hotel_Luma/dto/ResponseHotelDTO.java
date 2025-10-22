@@ -8,6 +8,7 @@ import java.util.Set;
 public record ResponseHotelDTO(
     Long id,
     String name,
+    String description,
     String location,
     LocalTime scheduleCheckIn,
     LocalTime scheduleCheckOut,

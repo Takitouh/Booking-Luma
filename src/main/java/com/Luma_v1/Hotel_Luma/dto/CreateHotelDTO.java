@@ -9,6 +9,8 @@ import java.util.Set;
 public record CreateHotelDTO(
         @NotBlank(message = "Name can't be null or blank")
         String name,
+        @NotBlank(message = "Description can't be null or blank")
+        String description,
         @NotBlank(message = "Location can't be null or blank")
         String location,
         @NotNull(message = "Schedule check-in can't be null")
