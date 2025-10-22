@@ -47,8 +47,6 @@ async function createBooking() {
     const idGuest = await handleGuestInformation()
     const idRoom = returnSelectedRoomID();
 
-    console.log("Antes de hacer la reserva del hotel")
-
     return fetch('api/v1/bookings/post', {
 
         // Adding method type
@@ -70,21 +68,13 @@ async function createBooking() {
     })
         .then(async res => {
                 if (!res.ok) throw new Error("Error creating booking.")
-                const booking = await res.json()
-                console.log(booking)
-                return booking
+            return await res.json()
             }
         )
 }
 
 async function createPayment() {
     const booking = await createBooking()
-
-    console.log("Antes de hacer el pago")
-
-    console.log("Booking:", booking)
-
-    console.log(typeof booking)
 
     fetch('api/v1/payment/create-payment', {
         // Adding method type
@@ -111,7 +101,7 @@ async function createPayment() {
 fetch(`/api/v1/hotels/get/${hotelId}`).then(res => res.json())
     .then(hotel => {
 
-        document.getElementById("hotel-name").textContent = hotel.name;
+        document.getElementById("hotel-title").textContent = hotel.name;
         document.getElementById("hotel-description").textContent = hotel.description || "No description available.";
         document.getElementById("hotel-location").textContent = hotel.location;
         document.getElementById("hotel-schedule-checking-checkout").textContent = hotel.scheduleCheckIn + " - " + hotel.scheduleCheckOut;
@@ -119,7 +109,7 @@ fetch(`/api/v1/hotels/get/${hotelId}`).then(res => res.json())
 
         //List all the amenities of the hotel
         hotel.amenities.forEach(amenityItem => {
-            const amenity = document.createElement("li");
+            const amenity = document.createElement("p");
             amenity.className = "hotel-amenities-item";
             amenity.textContent = amenityItem;
             amenitiesList.appendChild(amenity);
@@ -148,6 +138,7 @@ function constructorOfRoom(roomHotel, roomTable) {
     const roomSelec = document.createElement("input") //Radio
     const roomNumber = document.createElement("label") //The number of the room
 
+
     roomSelec.id = "hotel__booking-room-selector"
     roomSelec.type = "radio"
     roomSelec.name = "hotel-room"
@@ -156,12 +147,14 @@ function constructorOfRoom(roomHotel, roomTable) {
     roomFee.textContent = roomHotel.fee
     roomNumber.textContent = roomHotel.number
 
+    roomNumbers.className = "hotel__booking-room-numbers"
     room.className = "hotel__booking-room"
     roomFee.className = "hotel__booking-room-price"
-    roomNumbers.className = "hotel__booking-room-numbers"
+    roomNumbers.className = "hotel__booking-room-price"
 
     roomNumbers.appendChild(roomSelec)
     roomNumbers.appendChild(roomNumber)
+
 
     room.appendChild(roomNumbers)
     room.appendChild(roomFee)
@@ -191,7 +184,7 @@ function validationInputGuest() {
     const guestPhone = document.getElementById("guest-phone").value.trim()
     const errorMsgRoomSelection = document.getElementById("booking-room_error")
     const idRoom = returnSelectedRoomID()
-    //Error msg divs
+    //Error msg
     const errorMsgCheckIn = document.getElementById("hotel-checking__error")
     const errorMsgCheckOut = document.getElementById("hotel-checkout__error")
     const errorMsgFirstName = document.getElementById("guest-first-name__error")
