@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register of your hotel</title>
+    <link rel="stylesheet" href="css/register.css">
+    <script src="js/register.js" defer></script>
+</head>
+<body>
+<header>
+    <a href="index.html" id="logo"><img src="imgs/Booking-Luma.png" alt="Booking - Luma"></a>
+</header>
+<nav id="navbar">
+    <ul id="navbar-list">
+        <li class="navbar-list-item">
+            <a href="index.html" class="navbar-list-item-href"><i>Home</i></a>
+        </li>
+        <li class="navbar-list-item">
+            <a href="support.html" class="navbar-list-item-href"><i>Support</i></a>
+        </li>
+        <li class="navbar-list-item">
+            <a href="index.html#contact" class="navbar-list-item-href"><i>Contact</i></a>
+        </li>
+    </ul>
+</nav>
+
+<div id="toast-div"><h5 id="toast-msg"></h5></div>
+<main id="register-main">
+    <div id="register-form">
+        <h1 id="register-title">Register your hotel</h1>
+        <!-- Hotel information -->
+        <div class="input-div">
+            <span class="error-msg" id="error-name"></span>
+            <label for="hotelName">Hotel Name:</label>
+            <input type="text" id="hotelName" name="hotelName">
+        </div>
+        <div class="input-div">
+            <span class="error-msg" id="error-location"></span>
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location">
+        </div>
+        <div class="input-div">
+            <span class="error-msg" id="error-description"></span>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description"> </textarea>
+        </div>
+
+        <div class="input-div">
+            <h3>Schedules</h3>
+            <span class="error-msg" id="error-check-in"></span>
+            <label for="schedule-check-in">Check In:</label>
+            <input type="time" id="schedule-check-in" name="schedule-check-in">
+        </div>
+        <div class="input-div">
+            <span class="error-msg" id="error-check-out"></span>
+            <label for="schedule-check-out">Check Out:</label>
+            <input type="time" id="schedule-check-out" name="schedule-check-out">
+        </div>
+        <!-- Amenities list -->
+        <div class="input-div">
+            <fieldset id="amenities-fieldset" class="input-div">
+                <legend>Amenities:</legend>
+                <div class="amenity-group">
+                    <label><input type="checkbox" id="wifi" name="amenities" value="WiFi"> WiFi</label>
+                    <label><input type="checkbox" id="tv" name="amenities" value="Flat-screen TV"> Flat-screen
+                        TV</label>
+
+                    <label><input type="checkbox" id="washing-machine" name="amenities" value="Washing machine"> Washing
+                        machine</label>
+                    <label><input type="checkbox" id="private-bathroom" name="amenities" value="Private bathroom">
+                        Private bathroom</label>
+                    <label><input type="checkbox" id="views" name="amenities" value="Views"> Views</label>
+                    <label><input type="checkbox" id="terrace" name="amenities" value="Terrace"> Terrace</label>
+                    <label><input type="checkbox" id="admit-pets" name="amenities" value="Admit pets"> Admit
+                        pets</label>
+
+                    <label><input type="checkbox" id="gym" name="amenities" value="Gym"> Gym</label>
+                    <label><input type="checkbox" id="pool" name="amenities" value="Pool"> Pool</label>
+
+                    <label><input type="checkbox" id="parking" name="amenities" value="Parking"> Parking</label>
+                    <label><input type="checkbox" id="private-parking" name="amenities" value="Private parking"> Private
+                        parking</label>
+                    <label><input type="checkbox" id="free-parking" name="amenities" value="Free parking"> Free parking</label>
+                </div>
+            </fieldset>
+            <div class="input-div">
+                <span class="error-msg" id="error-img"></span>
+                <label for="inp-image-hotel">Main image from hotel:</label>
+                <input type="file" id="inp-image-hotel" accept="image/png">
+            </div>
+        </div>
+        <!-- Room containers -->
+        <div class="input-div" id="room-div">
+            <span class="error-msg" id="error-rooms"></span>
+            <p>Here goes the rooms of your hotel.</p>
+            <button id="add-room">+ Add room</button>
+        </div>
+        <button type="button" id="reg-button">Register Hotel</button>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,273 @@
+:root {
+    --primary-color: rgb(94, 80, 63);
+    --secondary-color: rgb(198, 172, 143);
+    --tertiary-color: rgb(34, 51, 59);
+    --quaternary-color: rgb(234, 224, 213);
+    --quinary-color: rgb(20, 68, 20);
+    --senary-color: rgb(10, 9, 8);
+}
+
+* {
+    font-family: "Trebuchet MS", serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--quaternary-color);
+    min-height: 100vh;
+}
+
+header {
+    padding: 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#logo{
+    margin: 1rem;
+    align-items: flex-start;
+    justify-content: left;
+
+}
+
+/* NAVBAR */
+
+#navbar {
+    overflow: hidden;
+    text-align: center;
+    color: var(--senary-color);
+    background-color: var(--primary-color);
+}
+
+
+#navbar-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    margin: .5rem 0;
+}
+
+.navbar-list-item {
+    padding: 0 .1rem;
+}
+
+
+.navbar-list-item-href {
+    color: black;
+    padding: 1rem 1.5rem;
+    display: block;
+    border: 3px solid var(--tertiary-color);
+    border-radius: 25px;
+}
+
+.navbar li a:hover {
+    background-color: var(--secondary-color);
+}
+
+/* =====================
+   Toast section
+   ===================== */
+#toast-div {
+    display: none;
+    position: fixed;
+    top: 0; /* or bottom: 0; */
+    left: 0;
+    width: 100vw; /* or 100% if inside <body> with no scroll issues */
+    height: 7vh;
+}
+
+
+#toast-msg {
+    text-align: center;
+    vertical-align: center;
+    font-size: 1.2rem;
+    padding: 1rem;
+}
+
+/* =====================
+   Register section
+   ===================== */
+#register-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background: none;
+}
+
+#register-form {
+    width: 34rem;
+    background-color: #fff;
+    border: 3px solid var(--tertiary-color);
+    border-radius: 1.2rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.10);
+    margin: 2rem auto;
+    padding: 2.5rem 2.5rem 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+#register-title {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.input-div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.7rem;
+    padding: 0;
+    gap: 0.2rem;
+}
+
+.input-div label {
+    color: var(--tertiary-color);
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+}
+
+.input-div input[type="text"],
+.input-div input[type="file"],
+.input-div input[type="time"],
+.input-div textarea {
+    padding: 0.5rem 0.7rem;
+    border: 2px solid var(--secondary-color);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background: var(--quaternary-color);
+    color: var(--senary-color);
+    transition: border-color 0.2s;
+}
+
+.input-div input[type="text"]:focus,
+.input-div input[type="file"]:focus,
+.input-div input[type="time"]:focus,
+.input-div textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.input-div textarea {
+    min-height: 3.5rem;
+    resize: vertical;
+}
+
+/* Room card section */
+.room-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    gap: .2rem;
+    margin: 0.5rem 0;
+    border: 2px solid var(--secondary-color);
+    border-radius: 0.7rem;
+    padding: 0.7rem .4rem;
+    background: var(--quaternary-color);
+    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.07);
+}
+
+.amenity-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+    margin-top: 0.5rem;
+}
+
+.input-room {
+    flex: 1;
+    padding: 0.15rem;
+    width: fit-content;
+}
+
+#del-room {
+    align-self: end;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.3rem 0.8rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+}
+
+#del-room:hover {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+#add-room {
+    padding: 0.5rem 1.2rem;
+    background: var(--secondary-color);
+    color: var(--senary-color);
+    border: none;
+    border-radius: 0.7rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0.5rem 0 1rem 0;
+    transition: background 0.2s, color 0.2s;
+}
+
+#add-room:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+#reg-button {
+    padding: 0.9rem 0;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 0.7rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1.2rem;
+    transition: background 0.2s, color 0.2s;
+}
+
+#reg-button:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+/* =====================
+   Validation
+   ===================== */
+.error-msg, .error-input {
+    color: rgba(255, 0, 0, 0.65);
+    font-style: italic;
+    text-align: center;
+    font-size: small;
+    height: 1rem;
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+/* =====================
+   Responsive
+   ===================== */
+@media (max-width: 600px) {
+    #register-form {
+        width: 98vw;
+        padding: 1rem 0.5rem;
+    }
+    .room-div {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
