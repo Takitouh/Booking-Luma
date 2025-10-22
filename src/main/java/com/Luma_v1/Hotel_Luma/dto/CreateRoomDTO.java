@@ -1,5 +1,6 @@
 package com.Luma_v1.Hotel_Luma.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -10,7 +11,7 @@ public record CreateRoomDTO(
         String number,
         @NotNull(message = "Fee can't be null")
         BigDecimal fee,
-        @NotNull(message = "Hotel ID can't be null")
+        @JsonProperty(access = JsonProperty.Access.READ_ONLY)
         Long idHotel
 ) {
 }
