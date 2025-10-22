@@ -1,9 +1,6 @@
 package com.Luma_v1.Hotel_Luma.service;
 
-import com.Luma_v1.Hotel_Luma.dto.CreateHotelDTO;
-import com.Luma_v1.Hotel_Luma.dto.PatchHotelDTO;
-import com.Luma_v1.Hotel_Luma.dto.PutHotelDTO;
-import com.Luma_v1.Hotel_Luma.dto.ResponseHotelDTO;
+import com.Luma_v1.Hotel_Luma.dto.*;
 import com.Luma_v1.Hotel_Luma.entity.Hotel;
 import org.apache.coyote.BadRequestException;
 import org.springframework.core.io.ByteArrayResource;
@@ -32,4 +29,6 @@ public interface IServiceHotel {
     Hotel downloadHotelImage(Long idHotel);
 
     ResponseHotelDTO findByName(String name) throws BadRequestException;
+
+    void registerHotel(CreateHotelDTO hotelDTO, List<CreateRoomDTO> roomDTOS, MultipartFile file) throws IOException;
 }

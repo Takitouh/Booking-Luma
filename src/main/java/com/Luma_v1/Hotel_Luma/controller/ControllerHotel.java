@@ -1,11 +1,9 @@
 package com.Luma_v1.Hotel_Luma.controller;
 
-import com.Luma_v1.Hotel_Luma.dto.CreateHotelDTO;
-import com.Luma_v1.Hotel_Luma.dto.PatchHotelDTO;
-import com.Luma_v1.Hotel_Luma.dto.PutHotelDTO;
-import com.Luma_v1.Hotel_Luma.dto.ResponseHotelDTO;
+import com.Luma_v1.Hotel_Luma.dto.*;
 import com.Luma_v1.Hotel_Luma.entity.Hotel;
 import com.Luma_v1.Hotel_Luma.service.IServiceHotel;
+import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -87,8 +85,8 @@ public class ControllerHotel {
         }
     }
 
-    @PostMapping("/uploadImage/{idHotel}")
-    public ResponseEntity<String> uploadImage(@PathVariable Long idHotel, @RequestPart("file")MultipartFile file) throws IOException {
+    @PostMapping("/uploadImage")
+    public ResponseEntity<String> uploadImage(@RequestParam(value = "id") Long idHotel, @RequestPart("file")MultipartFile file) throws IOException {
         return ResponseEntity.ok(hotelService.uploadHotelImage(file, idHotel));
     }
 
@@ -99,6 +97,14 @@ public class ControllerHotel {
        ByteArrayResource resource = new ByteArrayResource(hotel.getImageContent());
 
        return ResponseEntity.ok().contentType(MediaType.parseMediaType(String.valueOf(MediaType.IMAGE_PNG))).body(resource);
+    }
+
+    @PostMapping("/register-hotel")
+    public ResponseEntity<String> registerHotel(@Valid @RequestPart("hotel") CreateHotelDTO hotel, @Valid @RequestPart("rooms") List<CreateRoomDTO> rooms, @RequestPart("file") MultipartFile file) throws IOException {
+
+        hotelService.registerHotel(hotel, rooms, file);
+
+        return ResponseEntity.ok("Endpoint of register was called");
     }
 
 
