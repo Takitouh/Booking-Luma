@@ -46,10 +46,6 @@ function constructorOfHotels(hotels, container){
         title.textContent = hotel.name;
         title.className = "hotel-title";
 
-        const desc = document.createElement("p");
-        desc.textContent = hotel.description || "No description.";
-        desc.className = "hotel-description";
-
         const location = document.createElement("div");
         location.textContent = hotel.location;
         location.className = "hotel-location";
@@ -65,7 +61,6 @@ function constructorOfHotels(hotels, container){
         link.appendChild(img)
 
         link.appendChild(title)
-        link.appendChild(desc)
         link.appendChild(location)
 
         card.appendChild(link);
