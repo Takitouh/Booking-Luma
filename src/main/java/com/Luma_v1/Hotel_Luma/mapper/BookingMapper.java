@@ -31,6 +31,12 @@ public abstract class BookingMapper {
     @Mapping(source = "guestId", target = "guest")
     @Mapping(source = "roomId", target = "room")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "method", ignore = true)
+    @Mapping(target = "currency", ignore = true)
+    @Mapping(target = "intent", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+
     public abstract Booking toEntity(CreateBookingDTO createBookingDTO);
 
     @Mapping(source = "checkIn", target = "checkIn")
@@ -40,6 +46,11 @@ public abstract class BookingMapper {
     @Mapping(source = "guestId", target = "guest")
     @Mapping(source = "roomId", target = "room")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "method", ignore = true)
+    @Mapping(target = "currency", ignore = true)
+    @Mapping(target = "intent", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     public abstract Booking toEntity(PutBookingDTO putBookingDTO);
 
     @Mapping(source = "checkIn", target = "checkIn")
@@ -49,6 +60,11 @@ public abstract class BookingMapper {
     @Mapping(source = "roomId", target = "room")
     @Mapping(source = "totalPrice", target = "totalPrice")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "method", ignore = true)
+    @Mapping(target = "currency", ignore = true)
+    @Mapping(target = "intent", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     public abstract Booking toEntity(PatchBookingDTO patchBookingDTO, @MappingTarget Booking booking);
 
