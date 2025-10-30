@@ -30,18 +30,31 @@ header {
 }
 
 
-#register{
-    margin: 1rem;
+#register-container, #sign-up, #log-in{
     padding: .3rem;
-    align-items: flex-end;
-    justify-content: right;
+    margin: 1rem 1rem 1rem auto;
     color: antiquewhite;
-    text-decoration: none;
 }
 
-#register:hover{
+#log-out {
+    background-color: #c0a887;
+    padding: .4rem .5rem;
+    margin: .2rem .4rem;
+}
+
+#register, #sign-up, #log-in {
+    color: antiquewhite;
+    text-decoration: none;
+    padding: .3rem;
+    border: 2px solid #c0a887;
+    margin: 0 .3rem;
+    border-radius: 3px;
+}
+
+#register:hover, #sign-up:hover, #log-in:hover, #log-out:hover{
     background-color: rgba(252, 197, 167, 0.69);
     border-radius: 2px;
+    cursor: pointer;
 }
 
 footer {

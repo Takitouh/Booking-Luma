@@ -1,43 +1,49 @@
+userStatusBuilder()
+
+constructorHotelCards()
+
 // ### SEARCH BAR ###
-//Create the button element
 const searchButton = document.getElementById("search-bar-button");
-//Add the event listener to the button
 searchButton.addEventListener("click", redirectAfterSearch)
 
 //Function to get the value of the search input and after redirect to the result
-function redirectAfterSearch(){
+function redirectAfterSearch() {
     const searchInp = document.getElementById("searchInput").value.trim();
 
-    var params = new URLSearchParams();
+    const params = new URLSearchParams();
     params.append('name', searchInp);
 
     location.href = "searchResults.html?" + params.toString();
 }
 
-// ### CONSTRUCTOR OF HOTELS CARDS ###
-fetch('/api/v1/hotels/get')
-    .then(res => {
-        if (!res.ok) throw new Error('Error in the server reply.');
-        return res.json();
-    })
-    .then(async hotels => {
 
-        const container = document.getElementById("hotels");
+// ## HOTEL CARDS ##
+// Construction of hotel cards
+async function constructorHotelCards() {
 
-        if (await hotels == null || hotels.length === 0){
-            const title = document.createElement("h2");
-            title.textContent = "No hotels found.";
-            container.appendChild(title);
-            return;
-        }
+    await fetch('/api/v1/hotels/get')
+        .then(res => {
+            if (!res.ok) throw new Error('Error in the server reply.');
+            return res.json();
+        })
+        .then(async hotels => {
 
-         constructorOfHotels(hotels, container);
+            const container = document.getElementById("hotels");
 
-    })
-    .catch(err => console.error('Failed trying get the hotels:', err));
+            if (await hotels == null || hotels.length === 0) {
+                const title = document.createElement("h2");
+                title.textContent = "No hotels found.";
+                container.appendChild(title);
+                return;
+            }
 
+            constructorOfCardHotel(hotels, container);
 
-function constructorOfHotels(hotels, container){
+        })
+        .catch(err => console.error('Failed trying get the hotels:', err));
+}
+//Construction of each hotel card
+function constructorOfCardHotel(hotels, container) {
     hotels.forEach(hotel => {
         const card = document.createElement("article");
         card.className = "hotel-card";
@@ -69,6 +75,73 @@ function constructorOfHotels(hotels, container){
     });
 }
 
+
+// ## AUTHENTICATION ##
+// User status check
+async function userStatusFetch() {
+    return await fetch('api/v1/guests/getLogged', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => {
+        if (!res.ok) throw new Error('Error in the server reply.');
+        return res.json()
+    })
+}
+
+//User status builder
+async function userStatusBuilder() {
+    const userStatus = await userStatusFetch()
+    const containerLogged = document.getElementById("user-status")
+
+    if (userStatus.isLogged) {
+        const logOutButton = document.createElement("button")
+        logOutButton.id = "log-out"
+        logOutButton.textContent = "Log Out"
+        logOutButton.addEventListener("click", logOut)
+
+        const userName = document.createElement("span")
+        userName.id = "user-name"
+        userName.textContent = userStatus.fullName
+
+        containerLogged.appendChild(userName)
+        containerLogged.appendChild(logOutButton)
+    } else {
+        //Only logged users could register hotels
+        const registerLink = document.getElementById("register")
+        registerLink.addEventListener("click", function () {
+            registerLink.href = "login.html"
+        })
+
+        const signUpLink = document.createElement("a")
+        signUpLink.id = "sign-up"
+        signUpLink.href = "signUp.html"
+        signUpLink.textContent = "Sign Up"
+
+        const logInLink = document.createElement("a")
+        logInLink.id = "log-in"
+        logInLink.href = "login.html"
+        logInLink.textContent = "Log In"
+
+        containerLogged.appendChild(signUpLink)
+        containerLogged.appendChild(logInLink)
+    }
+}
+
+// Log out function
+function logOut() {
+    return fetch('auth/log-out', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => {
+        if (!res.ok) throw new Error('Error in the server reply.');
+
+        location.reload();
+    })
+}
 
 
 
