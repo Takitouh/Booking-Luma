@@ -2,6 +2,7 @@ package com.Luma_v1.Hotel_Luma.controller;
 
 import com.Luma_v1.Hotel_Luma.dto.*;
 import com.Luma_v1.Hotel_Luma.service.IServiceGuest;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,12 @@ public class ControllerGuest {
     public ResponseEntity<ResponseGuestDTO> getGuestById(@PathVariable Long id) {
         return new ResponseEntity<>(guestService.findById(id), HttpStatus.OK);
     }
+
+    @GetMapping("/getLogged")
+    public ResponseEntity<UserStatusNameLogged> getGuestIfLogged(HttpServletRequest request) {
+        return new ResponseEntity<>(guestService.getGuestNameIfLogged(request.getCookies()), HttpStatus.OK);
+    }
+
 
     @PostMapping("/post")
     public ResponseEntity<ResponseGuestDTO> createGuest(@RequestBody CreateGuestDTO guest) {

@@ -14,4 +14,9 @@ public interface IRepositoryGuest extends JpaRepository<Guest, Long> {
     List<ResponseRoomNumAndBookingDateDTO> findBookingsByGuestEmail(String email);
 
     Guest findByEmail(String email);
+
+
+    @Query(value = "SELECT CONCAT(g.first_name, ' ', g.last_name) FROM guest g WHERE g.email = :email",
+            nativeQuery = true)
+    String findGuestNameByEmail(String email);
 }

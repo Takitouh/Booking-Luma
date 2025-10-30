@@ -5,7 +5,10 @@ import com.Luma_v1.Hotel_Luma.entity.Guest;
 import com.Luma_v1.Hotel_Luma.mapper.GuestMapper;
 import com.Luma_v1.Hotel_Luma.repository.IRepositoryGuest;
 import com.Luma_v1.Hotel_Luma.service.IServiceGuest;
+import com.Luma_v1.Hotel_Luma.utils.JwtUtils;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.Cookie;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +22,12 @@ public class ServiceGuest implements IServiceGuest {
 
     private final IRepositoryGuest guestRepository;
     private final GuestMapper guestMapper;
+    private final JwtUtils jwtUtils;
 
-    public ServiceGuest(IRepositoryGuest guestRepository, GuestMapper guestMapper) {
+    public ServiceGuest(IRepositoryGuest guestRepository, GuestMapper guestMapper, JwtUtils jwtUtils) {
         this.guestRepository = guestRepository;
         this.guestMapper = guestMapper;
+        this.jwtUtils = jwtUtils;
     }
 
     @Override
@@ -68,6 +73,27 @@ public class ServiceGuest implements IServiceGuest {
         ResponseGuestDTO responseGuestDTO = this.save(newGuest);
         return responseGuestDTO;
     }
+
+    @Override
+    public UserStatusNameLogged getGuestNameIfLogged(Cookie[] cookies) {
+        log.info("Cookies null? {}", cookies == null);
+        if (cookies != null) {
+        /* # Important assert decodedJWT isn't null .getDecodedJWTFromCookie(cookies)
+        could return null in the case of users without account */
+            DecodedJWT decodedJWT = jwtUtils.getDecodedJWTFromCookie(cookies);
+            //Empty string for no log users
+            String email = decodedJWT != null ? jwtUtils.getEmailFromToken(decodedJWT) : "";
+
+            String guestName = "Welcome, " + guestRepository.findGuestNameByEmail(email);
+            boolean isLogged = decodedJWT != null;
+
+            return new UserStatusNameLogged(guestName, isLogged);
+        } else {
+
+            return new UserStatusNameLogged("", false);
+        }
+    }
+
 
     @Override
     public void deleteById(Long id) {
