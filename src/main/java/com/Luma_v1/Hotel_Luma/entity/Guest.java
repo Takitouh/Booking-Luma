@@ -23,8 +23,11 @@ public class Guest {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String phone;
+
+    @OneToOne(mappedBy = "guest")
+    private UserCredential credential;
 
     @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<>();
