@@ -45,6 +45,9 @@ public class Hotel {
     @Column(columnDefinition = "MEDIUMBLOB")
     private byte[] imageContent; // Store image as byte array
 
-    @OneToMany(mappedBy = "hotel")
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
     private List<Room> rooms = new ArrayList<>();
+
+    @ManyToOne
+    private Guest owner;
 }
