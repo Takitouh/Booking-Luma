@@ -31,10 +31,10 @@ public class ControllerAuth {
 
         ResponseCookie cookieJWT = ResponseCookie.from("COOKIE_JWT", "")
                 .httpOnly(true)
-                .secure(false)
-                .sameSite("Lax")
+                .secure(false) // False while development
+                .sameSite("Lax") // Lax while development
                 .path("/")
-                .maxAge(0) //
+                .maxAge(0)
                 .build();
 
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookieJWT.toString()).body("Log out OK");
@@ -44,13 +44,13 @@ public class ControllerAuth {
     public ResponseEntity<AuthResponseDTO> logIn(@RequestBody @Valid AuthLoginDTO userRequest) {
 
 
-        AuthResponseDTO response = userDetailsService.loginUser(userRequest);
+        AuthResponseDTO response = userDetailsService.loginGuest(userRequest);
         ResponseCookie cookieJWT = ResponseCookie.from("COOKIE_JWT", response.jwtToken())
                 .httpOnly(true)
-                .secure(false)  // ⬅️ IMPORTANT: false for HTTP development
+                .secure(false)  // False while development
                 .path("/")
                 .maxAge(3600)
-                .sameSite("Lax")  // ⬅️ IMPORTANT: Lax for cross-origin
+                .sameSite("Lax")  // Lax while development
                 .build();
 
         // Log the cookie header for debugging
@@ -63,6 +63,6 @@ public class ControllerAuth {
 
     @PostMapping("/sign-up")
     public ResponseEntity<ResponseUserCredentialDTO> signUp(@RequestBody @Valid AuthSignUpDTO guestCredentialDTO) {
-        return new ResponseEntity<>(userDetailsService.signUp(guestCredentialDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(userDetailsService.signUpGuest(guestCredentialDTO), HttpStatus.CREATED);
     }
 }
