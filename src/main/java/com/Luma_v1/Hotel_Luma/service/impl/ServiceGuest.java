@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -77,20 +78,26 @@ public class ServiceGuest implements IServiceGuest {
     @Override
     public UserStatusNameLogged getGuestNameIfLogged(Cookie[] cookies) {
         log.info("Cookies null? {}", cookies == null);
-        if (cookies != null) {
         /* # Important assert decodedJWT isn't null .getDecodedJWTFromCookie(cookies)
         could return null in the case of users without account */
-            DecodedJWT decodedJWT = jwtUtils.getDecodedJWTFromCookie(cookies);
+        DecodedJWT decodedJWT = cookies != null ? jwtUtils.getDecodedJWTFromCookie(cookies) : null;
+        if (decodedJWT != null) {
+
             //Empty string for no log users
-            String email = decodedJWT != null ? jwtUtils.getEmailFromToken(decodedJWT) : "";
+            String email = jwtUtils.getEmailFromToken(decodedJWT);
+            Guest guest = guestRepository.findByEmail(email);
 
-            String guestName = "Welcome, " + guestRepository.findGuestNameByEmail(email);
-            boolean isLogged = decodedJWT != null;
+            if (guest == null){
+                return new UserStatusNameLogged(null, "", "", false);
+            }
 
-            return new UserStatusNameLogged(guestName, isLogged);
+            String guestName = "Welcome, " + guest.getFirstName() + " " + guest.getLastName();
+            boolean isLogged = true;
+
+            return new UserStatusNameLogged(guest.getId(), guestName, email, isLogged);
         } else {
 
-            return new UserStatusNameLogged("", false);
+            return new UserStatusNameLogged(null, "", "", false);
         }
     }
 
