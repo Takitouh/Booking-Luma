@@ -22,7 +22,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        log.info("Executing the creation of permissions and roles");
+        log.info("Executing the creation of default permissions and roles");
         permissionsAndRolesInitializer();
     }
 
@@ -45,7 +45,7 @@ public class DataInitializer implements CommandLineRunner {
 
     private void permissionsAndRolesInitializer() {
         Set<String> permissionsName = new HashSet<>();
-        Set<String> rolesNames = Set.of("GUEST", "ADMIN");
+        Set<String> rolesNames = Set.of("GUEST", "OWNER");
         permissionsName.add("PERMISSION_VIEW_HOTEL");
         permissionsName.add("PERMISSION_CREATE_BOOKING");
         permissionsName.add("PERMISSION_REGISTER_HOTEL");
