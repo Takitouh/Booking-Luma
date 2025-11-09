@@ -27,4 +27,6 @@ public interface IServiceGuest {
     ResponseGuestDTO updateWithPatch(PatchGuestDTO guest, Long id);
 
     List<ResponseRoomNumAndBookingDateDTO> findBookingDateAndRoomNumAndGuestNameByGuestEmail(String email);
+
+    Set<HotelNameLocationDTO> findHotelsOwner(String emailOwner);
 }

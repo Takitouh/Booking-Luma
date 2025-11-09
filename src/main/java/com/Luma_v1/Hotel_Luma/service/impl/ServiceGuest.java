@@ -134,4 +134,11 @@ public class ServiceGuest implements IServiceGuest {
     public List<ResponseRoomNumAndBookingDateDTO> findBookingDateAndRoomNumAndGuestNameByGuestEmail(String email) {
         return guestRepository.findBookingsByGuestEmail(email);
     }
+
+    @Override
+    public Set<HotelNameLocationDTO> findHotelsOwner(String emailOwner) {
+
+
+        return guestRepository.findHotelsByGuestEmail(emailOwner);
+    }
 }
