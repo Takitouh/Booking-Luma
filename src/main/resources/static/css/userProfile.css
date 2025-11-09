@@ -1,0 +1,172 @@
+* {
+    font-family: "Trebuchet MS", serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 16px 28px;
+    background: transparent;
+}
+
+#logo img {
+    height: 42px;
+}
+
+/* NAVBAR */
+
+#navbar {
+    overflow: hidden;
+    text-align: center;
+    color: var(--senary-color);
+    background-color: var(--primary-color);
+}
+
+
+#navbar-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    margin: .5rem 0;
+}
+
+.navbar-list-item {
+    padding: 0 .1rem;
+}
+
+
+.navbar-list-item-href {
+    color: black;
+    padding: 1rem 1.5rem;
+    display: block;
+    border: 3px solid var(--tertiary-color);
+    border-radius: 25px;
+}
+
+.navbar li a:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Profile container  */
+
+#profile-main {
+    justify-content: center;
+    padding: 28px 16px 64px;
+}
+
+.profile-container {
+
+}
+
+/* Details profile  */
+
+.profile-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 6px 18px rgba(10, 9, 8, 0.06);
+    border: 1px solid rgba(94, 80, 63, 0.06);
+}
+
+.profile-title {
+    margin: 0 0 12px 0;
+    color: var(--senary-color);
+    font-size: 1.25rem;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.form-row label {
+    font-size: 0.9rem;
+    color: var(--tertiary-color);
+}
+
+.form-row input {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(34, 51, 59, 0.12);
+    background: linear-gradient(180deg, #fff, #fbfaf8);
+    outline: none;
+    font-size: 0.95rem;
+}
+
+.form-row input:focus {
+    box-shadow: 0 0 0 4px rgba(198, 172, 143, 0.15);
+    border-color: var(--secondary-color);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+}
+
+#save-profile {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Owner Hotels */
+
+#owner-hotels-list {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+
+.hotels-list {
+    flex: 2;
+    display: grid;
+    grid-template-columns: 20rem 10rem;
+    grid-template-rows: repeat(2, 1fr);
+    border: 2px black solid;
+    border-radius: .5rem;
+    padding: 1rem;
+    margin: 1rem 1.5rem;
+    max-width: max-content;
+}
+
+.hotel-title, .hotel-location {
+    margin: .3rem 0;
+    font-size: 1rem;
+    grid-row: auto;
+    grid-column: 1;
+}
+
+.hotel-update-button, .hotel-see-button, .hotel-delete-button {
+    padding: .5rem;
+    width: 5rem;
+    height: 2.5rem;
+}
+
+.hotel-card-buttons {
+    grid-row: 1;
+    grid-column: 2 / 2;
+    display: flex;
+    justify-content: space-between;
+}
+
+:root {
+    --primary-color: rgb(94, 80, 63);
+    --secondary-color: rgb(198, 172, 143);
+    --tertiary-color: rgb(34, 51, 59);
+    --quaternary-color: rgb(234, 224, 213);
+    --quinary-color: rgb(20, 68, 20);
+    --senary-color: rgb(10, 9, 8);
+}
+
+
