@@ -3,6 +3,9 @@ package com.Luma_v1.Hotel_Luma.controller;
 import com.Luma_v1.Hotel_Luma.dto.*;
 import com.Luma_v1.Hotel_Luma.entity.Hotel;
 import com.Luma_v1.Hotel_Luma.service.IServiceHotel;
+import com.Luma_v1.Hotel_Luma.utils.JwtUtils;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +26,11 @@ import java.util.Optional;
 public class ControllerHotel {
 
     private final IServiceHotel hotelService;
+    private final JwtUtils jwtUtils;
 
-    @Autowired
-    public ControllerHotel(IServiceHotel hotelService) {
+    public ControllerHotel(IServiceHotel hotelService, JwtUtils jwtUtils) {
         this.hotelService = hotelService;
+        this.jwtUtils = jwtUtils;
     }
 
     @GetMapping("/get")
@@ -44,10 +48,10 @@ public class ControllerHotel {
         return new ResponseEntity<>(hotelService.findByName(name), HttpStatus.OK);
     }
 
-    @PostMapping("/post")
-    public ResponseEntity<ResponseHotelDTO> createHotel(@RequestBody CreateHotelDTO hotel) {
-        return new ResponseEntity<>(hotelService.save(hotel), HttpStatus.CREATED);
-    }
+//    @PostMapping("/post")
+//    public ResponseEntity<ResponseHotelDTO> createHotel(@RequestBody CreateHotelDTO hotel) {
+//        return new ResponseEntity<>(hotelService.save(hotel), HttpStatus.CREATED);
+//    }
 
     @PostMapping("/postBatch")
     public ResponseEntity<List<ResponseHotelDTO>> createHotel(@RequestBody List<CreateHotelDTO> hotels) {
@@ -100,9 +104,12 @@ public class ControllerHotel {
     }
 
     @PostMapping("/register-hotel")
-    public ResponseEntity<String> registerHotel(@Valid @RequestPart("hotel") CreateHotelDTO hotel, @Valid @RequestPart("rooms") List<CreateRoomDTO> rooms, @RequestPart("file") MultipartFile file) throws IOException {
+    public ResponseEntity<String> registerHotel(@Valid @RequestPart("hotel") CreateHotelDTO hotel, @Valid @RequestPart("rooms") List<CreateRoomDTO> rooms, @RequestPart("file") MultipartFile file, HttpServletRequest request) throws IOException {
 
-        hotelService.registerHotel(hotel, rooms, file);
+        DecodedJWT decodedJWT = jwtUtils.getDecodedJWTFromCookie(request.getCookies());
+        String emailOwner = jwtUtils.getEmailFromToken(decodedJWT);
+
+        hotelService.registerHotel(hotel, rooms, file, emailOwner);
 
         return ResponseEntity.ok("Endpoint of register was called");
     }

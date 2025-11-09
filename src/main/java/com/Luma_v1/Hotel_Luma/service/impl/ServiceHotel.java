@@ -3,6 +3,7 @@ package com.Luma_v1.Hotel_Luma.service.impl;
 import com.Luma_v1.Hotel_Luma.dto.*;
 import com.Luma_v1.Hotel_Luma.entity.Hotel;
 import com.Luma_v1.Hotel_Luma.mapper.HotelMapper;
+import com.Luma_v1.Hotel_Luma.repository.IRepositoryGuest;
 import com.Luma_v1.Hotel_Luma.repository.IRepositoryHotel;
 import com.Luma_v1.Hotel_Luma.service.IServiceHotel;
 import com.Luma_v1.Hotel_Luma.service.IServiceRoom;
@@ -25,11 +26,13 @@ public class ServiceHotel implements IServiceHotel {
     private final IRepositoryHotel hotelRepository;
     private final HotelMapper hotelMapper;
     private final IServiceRoom serviceRoom;
+    private final IRepositoryGuest repositoryGuest;
 
-    public ServiceHotel(IRepositoryHotel hotelRepository, HotelMapper hotelMapper, IServiceRoom serviceRoom) {
+    public ServiceHotel(IRepositoryHotel hotelRepository, HotelMapper hotelMapper, IServiceRoom serviceRoom, IRepositoryGuest repositoryGuest) {
         this.hotelRepository = hotelRepository;
         this.hotelMapper = hotelMapper;
         this.serviceRoom = serviceRoom;
+        this.repositoryGuest = repositoryGuest;
     }
 
     @Override
@@ -43,8 +46,9 @@ public class ServiceHotel implements IServiceHotel {
     }
 
     @Override
-    public ResponseHotelDTO save(CreateHotelDTO hotel) {
+    public ResponseHotelDTO save(CreateHotelDTO hotel, String emailOwner) {
         Hotel hotelEntity = hotelMapper.toEntity(hotel);
+        hotelEntity.setOwner(repositoryGuest.findByEmail(emailOwner)); //Associate owner to his hotel
         hotelRepository.save(hotelEntity);
         return hotelMapper.toResponseDTO(hotelRepository.save(hotelEntity));
     }
@@ -128,13 +132,14 @@ public class ServiceHotel implements IServiceHotel {
 
         return hotelMapper.toResponseDTO(hotel);
     }
+
     @Transactional
     @Override
-    public void registerHotel(CreateHotelDTO hotelDTO, List<CreateRoomDTO> roomDTOS, MultipartFile file) throws IOException {
+    public void registerHotel(CreateHotelDTO hotelDTO, List<CreateRoomDTO> roomDTOS, MultipartFile file, String emailOwner) throws IOException {
         log.info("Starting register of a hotel");
         try {
             // First: save the hotel
-            ResponseHotelDTO responseHotelDTO = this.save(hotelDTO);
+            ResponseHotelDTO responseHotelDTO = this.save(hotelDTO, emailOwner);
             final Long idHotel = responseHotelDTO.id();
             log.info("Hotel created with ID:{}", idHotel);
 
@@ -166,7 +171,7 @@ public class ServiceHotel implements IServiceHotel {
             newRooms.add(roomDTO);
         }
 
-       return newRooms;
+        return newRooms;
     }
 
 }

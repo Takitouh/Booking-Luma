@@ -14,7 +14,7 @@ public interface IServiceHotel {
 
     ResponseHotelDTO findById(Long id);
 
-    ResponseHotelDTO save(CreateHotelDTO hotel);
+    ResponseHotelDTO save(CreateHotelDTO hotel, String emailOwner);
 
     List<ResponseHotelDTO> saveAll(List<CreateHotelDTO> hotels);
 
@@ -30,5 +30,5 @@ public interface IServiceHotel {
 
     ResponseHotelDTO findByName(String name) throws BadRequestException;
 
-    void registerHotel(CreateHotelDTO hotelDTO, List<CreateRoomDTO> roomDTOS, MultipartFile file) throws IOException;
+    void registerHotel(CreateHotelDTO hotelDTO, List<CreateRoomDTO> roomDTOS, MultipartFile file, String emailOwner) throws IOException;
 }
