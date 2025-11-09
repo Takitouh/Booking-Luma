@@ -6,8 +6,8 @@ import com.Luma_v1.Hotel_Luma.entity.Role;
 import com.Luma_v1.Hotel_Luma.entity.UserCredential;
 import com.Luma_v1.Hotel_Luma.mapper.GuestCredentialMapper;
 import com.Luma_v1.Hotel_Luma.repository.IRepositoryGuest;
-import com.Luma_v1.Hotel_Luma.repository.IRepositoryUserCredential;
 import com.Luma_v1.Hotel_Luma.repository.IRepositoryRole;
+import com.Luma_v1.Hotel_Luma.repository.IRepositoryUserCredential;
 import com.Luma_v1.Hotel_Luma.service.IServiceGuest;
 import com.Luma_v1.Hotel_Luma.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +49,7 @@ public class ServiceUserDetails implements UserDetailsService {
     }
 
     /**
-     * Load the user by his email and return a User with info of his credentials
+     * Load the user by his email and return a UserDetails
      *
      * @param email email of the user
      * @return User
@@ -86,14 +86,13 @@ public class ServiceUserDetails implements UserDetailsService {
     }
 
     /**
-     * LOG IN:
-     * Uses authenticate() for authenticate the user, update the SecurityContextHolder and return the JWT
-     * in AuthResponseDTO
+     * Log in for guests
+     * Receive the email and password to get his UserDetails and authenticate it and returns JWT if authentication was successful
      *
      * @param userRequest contains email and password
      * @return AuthResponseDTO with successful message and JWT
      */
-    public AuthResponseDTO loginUser(AuthLoginDTO userRequest) {
+    public AuthResponseDTO loginGuest(AuthLoginDTO userRequest) {
         String username = userRequest.email();
         String password = userRequest.password();
         Authentication authentication = this.authenticate(username, password);
@@ -117,38 +116,41 @@ public class ServiceUserDetails implements UserDetailsService {
         //If the credentials are invalid, throw exception
         if (!Objects.equals(userDetails.getUsername(), email) || !passwordEncoder.matches(password, userDetails.getPassword())) {
             throw new BadCredentialsException("Invalid email or password");
-        } //else continue
+        }
         return new UsernamePasswordAuthenticationToken(email, userDetails.getPassword(), userDetails.getAuthorities());
     }
 
 
     /**
-     * SIGN UP:
-     * Save the credentials of the guest for the first time.
-     * We use the CredentialDTO for create a new GuestDTO and send it in .createNewGuest() in case the email isn't assigned to a previous guest,
-     * with the response we get the guest by his ID, encrypt the password and assign these to guestCredential.
+     * Sign up for guests
+     * Create the credentials of the guest and assign these credentials to the corresponding Guest.
      *
-     * @param guestCredentialDTO DTO with the data for creation (firstName, lastName, email, phone, password)
-     * @return ResponseGuestCredentialDTO response with the data of credentials
+     * @param guestCredentialDTO Data of Guest (firstName, lastName, email, phone, password)
+     * @return ResponseGuestCredentialDTO response with the credentials
      * @throws RuntimeException if the user isn't found or if it wasn't created
      */
-    public ResponseUserCredentialDTO signUp(AuthSignUpDTO guestCredentialDTO) {
-
-        Role guestRole = repositoryRole.getRoleByRole("GUEST");
+    public ResponseUserCredentialDTO signUpGuest(AuthSignUpDTO guestCredentialDTO) {
+        //Because this sign up is only for guest, all users that use this will get the role GUEST
         Set<Role> guestRoleSet = new HashSet<>();
-        guestRoleSet.add(guestRole);
 
+        Role role = repositoryRole.getRoleByRole("GUEST") ;
+        guestRoleSet.add(role);
 
+        //Build the CreateGuestDTO and get the Guest info
         CreateGuestDTO guestDTO = new CreateGuestDTO(guestCredentialDTO.firstName(), guestCredentialDTO.lastName(), guestCredentialDTO.email(), guestCredentialDTO.phone());
+        ResponseGuestDTO guestResponse = serviceGuest.getOldGuestOrCreateNewGuest(guestCredentialDTO.email(), guestDTO);
 
-        ResponseGuestDTO guestResponse = serviceGuest.createNewGuest(guestCredentialDTO.email(), guestDTO);
-
+        //Get the Guest entity by the previous guestResponse
         Guest guest = guestRepository.findById(guestResponse.id()).orElseThrow(() -> new RuntimeException("Guest not found"));
+
+        if (guest.getCredential() != null){
+            throw new RuntimeException("Attempt of create credentials for guest with email [" + guest.getEmail() + "] that already has credentials.");
+        }
 
         String passwordEncoded = passwordEncoder.encode(guestCredentialDTO.password());
 
+        //Assign the credentials to the corresponding guest
         UserCredential userCredential = guestCredentialMapper.toEntity(guestCredentialDTO);
-
         userCredential.setEnabled(true);
         userCredential.setGuest(guest);
         userCredential.setPassword(passwordEncoded);
