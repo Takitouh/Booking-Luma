@@ -79,13 +79,13 @@ function constructorOfCardHotel(hotels, container) {
 // ## AUTHENTICATION ##
 // User status check
 async function userStatusFetch() {
-    return await fetch('api/v1/guests/getLogged', {
+    return await fetch('/api/v1/guests/getLogged', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         }
     }).then(res => {
-        if (!res.ok) throw new Error('Error in the server reply.');
+        if (!res.ok) throw new Error('Error in the server reply.'+ res);
         return res.json()
     })
 }
@@ -96,6 +96,9 @@ async function userStatusBuilder() {
     const containerLogged = document.getElementById("user-status")
 
     if (userStatus.isLogged) {
+        const userProfileLink = document.createElement("a")
+        userProfileLink.href = "user-profile.html"
+
         const logOutButton = document.createElement("button")
         logOutButton.id = "log-out"
         logOutButton.textContent = "Log Out"
@@ -105,13 +108,15 @@ async function userStatusBuilder() {
         userName.id = "user-name"
         userName.textContent = userStatus.fullName
 
-        containerLogged.appendChild(userName)
+        userProfileLink.appendChild(userName)
+
+        containerLogged.appendChild(userProfileLink)
         containerLogged.appendChild(logOutButton)
     } else {
         //Only logged users could register hotels
         const registerLink = document.getElementById("register")
         registerLink.addEventListener("click", function () {
-            registerLink.href = "login.html"
+            registerLink.href = "signup-contributor.html"
         })
 
         const signUpLink = document.createElement("a")
