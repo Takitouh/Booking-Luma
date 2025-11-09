@@ -101,15 +101,13 @@ public class ServiceGuest implements IServiceGuest {
     }
 
     @Override
-    public ResponseGuestDTO updateWithPut(PutGuestDTO guest, Long id) {
+    public ResponseGuestDTO updateWithPut(PutGuestDTO putGuestDTO, Long id) {
         Guest oldGuest = guestRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        Guest newGuest = guestMapper.toEntity(guest);
+        //Guest newGuest = guestMapper.toEntity(putGuestDTO);
 
-        oldGuest.setEmail(newGuest.getEmail());
-        oldGuest.setFirstName(newGuest.getFirstName());
-        oldGuest.setLastName(newGuest.getLastName());
-        oldGuest.setPhone(newGuest.getPhone());
-        oldGuest.setBookings(newGuest.getBookings());
+        oldGuest.setFirstName(putGuestDTO.firstName());
+        oldGuest.setLastName(putGuestDTO.lastName());
+        oldGuest.setPhone(putGuestDTO.phone());
 
         guestRepository.save(oldGuest);
 
