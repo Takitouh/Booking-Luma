@@ -4,6 +4,7 @@ import com.Luma_v1.Hotel_Luma.dto.*;
 import jakarta.servlet.http.Cookie;
 
 import java.util.List;
+import java.util.Set;
 
 public interface IServiceGuest {
     List<ResponseGuestDTO> findAll();
@@ -16,7 +17,7 @@ public interface IServiceGuest {
 
     //This method will check if guest exists according to his email, if it exists it will return the guest
     //Else will create a new guest
-    ResponseGuestDTO createNewGuest(String email, CreateGuestDTO newGuest);
+    ResponseGuestDTO getOldGuestOrCreateNewGuest(String email, CreateGuestDTO newGuest);
 
     UserStatusNameLogged getGuestNameIfLogged(Cookie[] cookies);
 

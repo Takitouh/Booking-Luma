@@ -64,7 +64,7 @@ public class ServiceGuest implements IServiceGuest {
 
     //Check if any guest have the email, if true so it returns it, else will create a new guest
     @Override
-    public ResponseGuestDTO createNewGuest(String email, CreateGuestDTO newGuest) {
+    public ResponseGuestDTO getOldGuestOrCreateNewGuest(String email, CreateGuestDTO newGuest) {
         Guest guest = guestRepository.findByEmail(email);
         if (guest != null) {
             log.info("Guest with email {} already exists", email);
