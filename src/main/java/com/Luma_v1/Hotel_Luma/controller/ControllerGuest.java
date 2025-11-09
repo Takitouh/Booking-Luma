@@ -2,26 +2,32 @@ package com.Luma_v1.Hotel_Luma.controller;
 
 import com.Luma_v1.Hotel_Luma.dto.*;
 import com.Luma_v1.Hotel_Luma.service.IServiceGuest;
+import com.Luma_v1.Hotel_Luma.utils.JwtUtils;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/guests")
 public class ControllerGuest {
 
     private final IServiceGuest guestService;
+    private final JwtUtils jwtUtils;
 
-    @Autowired
-    public ControllerGuest(IServiceGuest guestService) {
+    public ControllerGuest(IServiceGuest guestService, JwtUtils jwtUtils) {
         this.guestService = guestService;
+        this.jwtUtils = jwtUtils;
     }
 
     @GetMapping("/get")
@@ -52,7 +58,7 @@ public class ControllerGuest {
 
     @PostMapping("/post-booking-guest")
     public ResponseEntity<ResponseGuestDTO> createNonExistingGuestOrReturnExistingGuest(@Valid @RequestBody CreateGuestDTO guest, @RequestParam String email) {
-        return new ResponseEntity<>(guestService.createNewGuest(email, guest), HttpStatus.CREATED);
+        return new ResponseEntity<>(guestService.getOldGuestOrCreateNewGuest(email, guest), HttpStatus.CREATED);
     }
 
     @PutMapping("/put/{id}")
@@ -90,4 +96,14 @@ public class ControllerGuest {
     public ResponseEntity<List<ResponseRoomNumAndBookingDateDTO>> getAllBookingsByGuestEmail(@PathVariable @Email String email) {
         return new ResponseEntity<>(guestService.findBookingDateAndRoomNumAndGuestNameByGuestEmail(email), HttpStatus.OK);
     }
+
+    @GetMapping("/gethotels-byemail")
+    public ResponseEntity<Set<HotelNameLocationDTO>> getAllHotelsOwner(HttpServletRequest request) {
+
+        DecodedJWT decodedJWT = jwtUtils.getDecodedJWTFromCookie(request.getCookies());
+        String emailOwner = jwtUtils.getEmailFromToken(decodedJWT);
+
+        return new ResponseEntity<>(guestService.findHotelsOwner(emailOwner), HttpStatus.OK);
+    }
+
 }
