@@ -46,6 +46,7 @@ function registerHandler() {
 //Function that builds the JSON of the hotel
 function createHotel() {
     //Get the values of the inputs
+    //const email = document.getElementById("ownerEmail").value.trim()
     const hotelName = document.getElementById("hotelName").value.trim()
     const description = document.getElementById("description").value.trim()
     const location = document.getElementById("location").value.trim()
@@ -58,6 +59,7 @@ function createHotel() {
     const arrayAmenities = Array.from(ameniChecked).map(el => el.value)
 
     return JSON.stringify({
+        //ownerEmail: email,
         name: hotelName,
         description: description,
         location: location,
