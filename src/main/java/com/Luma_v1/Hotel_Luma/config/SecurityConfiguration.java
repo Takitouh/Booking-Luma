@@ -52,12 +52,16 @@ public class SecurityConfiguration {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register.html", "/register.css", "/register.js", "/api/v1/hotels/register-hotel").hasAuthority("PERMISSION_REGISTER_HOTEL")
+                        //Register hotels
+                        .requestMatchers("/register.html", "/register.css", "/register.js", "/api/v1/hotels/register-hotel", "api/v1/guests/gethotels-byemail", "api/v1/hotels/delete/*").hasRole("GUEST")
 
+                        //Public resources
                         .requestMatchers("/", "/favicon.ico", "/css/*.css", "/js/*.js", "/imgs/**", "/*.html", "/api/v1/hotels/get/**", "/api/v1/bookings/post",
                                 "/api/v1/guests/post-booking-guest/**", "/api/v1/hotels/downloadImage/**", "/auth/sign-up",
                                 "/auth/log-in", "/auth/log-out", "/api/v1/guests/getLogged", "/api/v1/payment/create-payment", "/api/v1/payment/execute-payment")
-                        .permitAll().anyRequest().denyAll()
+                        .permitAll()
+
+                        .requestMatchers("/api/v1/guests/**").hasRole("GUEST").anyRequest().denyAll()
                 )
                 .addFilterBefore(new filterJWT(jwtUtils), UsernamePasswordAuthenticationFilter.class)
                 .build();
