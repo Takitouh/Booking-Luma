@@ -38,7 +38,6 @@ public abstract class RoomMapper {
 
     @Mapping(source = "number", target = "number")
     @Mapping(source = "fee", target = "fee")
-    @Mapping(source = "idHotel", target = "hotel")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "bookings", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

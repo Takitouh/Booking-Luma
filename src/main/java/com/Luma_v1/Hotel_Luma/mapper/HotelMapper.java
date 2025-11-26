@@ -45,7 +45,6 @@ public interface HotelMapper {
     @Mapping(source = "name", target = "name")
     @Mapping(source = "scheduleCheckIn", target = "scheduleCheckIn")
     @Mapping(source = "scheduleCheckOut", target = "scheduleCheckOut")
-    @Mapping(source = "rooms", target = "rooms")
     @Mapping(source = "amenities", target = "amenities")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "nameContent", ignore = true)
