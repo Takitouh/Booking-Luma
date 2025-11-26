@@ -85,14 +85,22 @@ public class ServiceHotel implements IServiceHotel {
         return hotelMapper.toResponseDTO(oldHotel);
     }
 
+    @Transactional
     @Override
-    public ResponseHotelDTO updateWithPatch(PatchHotelDTO hotel, Long id) {
+    public ResponseHotelDTO updateWithPatch(PatchHotelDTO generalInfo, MultipartFile file, Long id) throws IOException {
         Hotel oldHotel = hotelRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        Hotel newHotel = hotelMapper.toEntity(hotel, oldHotel);
+        Hotel newHotel = hotelMapper.toEntity(generalInfo, oldHotel);
+
+        if (file != null) {
+            this.uploadHotelImage(file, id);
+        }
 
         oldHotel.setName(newHotel.getName() != null ? newHotel.getName() : oldHotel.getName());
         oldHotel.setLocation(newHotel.getLocation() != null ? newHotel.getLocation() : oldHotel.getLocation());
-        oldHotel.setRooms(newHotel.getRooms() != null ? newHotel.getRooms() : oldHotel.getRooms());
+        oldHotel.setDescription(newHotel.getDescription() != null ? newHotel.getDescription() : oldHotel.getDescription());
+        oldHotel.setScheduleCheckIn(newHotel.getScheduleCheckIn() != null ? newHotel.getScheduleCheckIn() : oldHotel.getScheduleCheckIn());
+        oldHotel.setScheduleCheckOut(newHotel.getScheduleCheckOut() != null ? newHotel.getScheduleCheckOut() : oldHotel.getScheduleCheckOut());
+        oldHotel.setAmenities(newHotel.getAmenities() != null ? newHotel.getAmenities() : oldHotel.getAmenities());
         hotelRepository.save(oldHotel);
 
         return hotelMapper.toResponseDTO(oldHotel);
@@ -129,7 +137,6 @@ public class ServiceHotel implements IServiceHotel {
 
         Hotel hotel = hotelRepository.findByName(name);
 
-
         return hotelMapper.toResponseDTO(hotel);
     }
 
@@ -150,8 +157,7 @@ public class ServiceHotel implements IServiceHotel {
 
             // Third: save the list of rooms
             log.debug("Saving {} rooms for the hotel with ID:{}", roomDTOS == null ? 0 : roomDTOS.size(), idHotel);
-            roomDTOS = this.assignHotelIdToRooms(roomDTOS, idHotel);
-            List<ResponseRoomHotelNameDTO> responseRoomDTOS = serviceRoom.saveAll(roomDTOS);
+            List<ResponseRoomHotelNameDTO> responseRoomDTOS = serviceRoom.saveAll(roomDTOS, idHotel);
             log.info("It did register {} rooms for the hotel with ID:{}", responseRoomDTOS == null ? 0 : responseRoomDTOS.size(), idHotel);
 
             log.info("Register finalized of the hotel with ID:{}", idHotel);
@@ -164,7 +170,7 @@ public class ServiceHotel implements IServiceHotel {
         }
     }
 
-    private List<CreateRoomDTO> assignHotelIdToRooms(List<CreateRoomDTO> rooms, Long idHotel) {
+    public static List<CreateRoomDTO> assignHotelIdToRooms(List<CreateRoomDTO> rooms, Long idHotel) {
         List<CreateRoomDTO> newRooms = new ArrayList<>();
         for (CreateRoomDTO room : rooms) {
             CreateRoomDTO roomDTO = new CreateRoomDTO(room.number(), room.fee(), idHotel);

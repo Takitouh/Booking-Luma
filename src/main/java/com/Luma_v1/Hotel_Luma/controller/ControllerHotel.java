@@ -8,7 +8,6 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -69,13 +68,8 @@ public class ControllerHotel {
     }
 
     @PatchMapping("/patch/{id}")
-    public ResponseEntity<ResponseHotelDTO> updateHotel(@PathVariable Long id, @RequestBody PatchHotelDTO hotel) {
-        Optional<ResponseHotelDTO> existingHotel = Optional.ofNullable(hotelService.findById(id));
-        if (existingHotel.isPresent()) {
-            return new ResponseEntity<>(hotelService.updateWithPatch(hotel, id), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<ResponseHotelDTO> updateHotel(@PathVariable Long id, @RequestPart("generalInfoHotel") PatchHotelDTO generalInfo, @RequestPart(value = "file", required = false) MultipartFile file) throws IOException {
+        return new ResponseEntity<>(hotelService.updateWithPatch(generalInfo, file, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -90,17 +84,17 @@ public class ControllerHotel {
     }
 
     @PostMapping("/uploadImage")
-    public ResponseEntity<String> uploadImage(@RequestParam(value = "id") Long idHotel, @RequestPart("file")MultipartFile file) throws IOException {
+    public ResponseEntity<String> uploadImage(@RequestParam(value = "id") Long idHotel, @RequestPart("file") MultipartFile file) throws IOException {
         return ResponseEntity.ok(hotelService.uploadHotelImage(file, idHotel));
     }
 
     @GetMapping("/downloadImage/{idHotel}")
     public ResponseEntity<Resource> downloadImage(@PathVariable Long idHotel) {
-       Hotel hotel = hotelService.downloadHotelImage(idHotel);
+        Hotel hotel = hotelService.downloadHotelImage(idHotel);
 
-       ByteArrayResource resource = new ByteArrayResource(hotel.getImageContent());
+        ByteArrayResource resource = new ByteArrayResource(hotel.getImageContent());
 
-       return ResponseEntity.ok().contentType(MediaType.parseMediaType(String.valueOf(MediaType.IMAGE_PNG))).body(resource);
+        return ResponseEntity.ok().contentType(MediaType.parseMediaType(String.valueOf(MediaType.IMAGE_PNG))).body(resource);
     }
 
     @PostMapping("/register-hotel")

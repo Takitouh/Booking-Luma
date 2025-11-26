@@ -22,7 +22,7 @@ public interface IServiceHotel {
 
     ResponseHotelDTO updateWithPut(PutHotelDTO hotel, Long id);
 
-    ResponseHotelDTO updateWithPatch(PatchHotelDTO hotel, Long id);
+    ResponseHotelDTO updateWithPatch(PatchHotelDTO hotel, MultipartFile file, Long id) throws IOException;
 
     String uploadHotelImage(MultipartFile file, Long idHotel) throws IOException;
 
