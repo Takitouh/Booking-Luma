@@ -36,8 +36,8 @@ public class ControllerPaypal {
             Double total = booking.totalPrice().doubleValue();
 
             payment = servicePaypal.createPayment(total, booking.currency(), booking.method(),
-                    booking.intent(), "ID Booking:"+booking.id(), "http://localhost:8080/errorPayment.html?idBooking="+booking.id(),
-                    "http://localhost:8080/successPayment.html");
+                    booking.intent(), "ID Booking:"+booking.id(), "http://localhost:8080/failed-payment.html?idBooking="+booking.id(),
+                    "http://localhost:8080/success-payment.html");
 
             for (Links links : payment.getLinks()) {
                 if (links.getRel().equals("approval_url")) {
