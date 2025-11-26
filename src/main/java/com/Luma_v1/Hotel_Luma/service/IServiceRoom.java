@@ -14,7 +14,7 @@ public interface IServiceRoom {
 
     ResponseRoomHotelNameDTO save(CreateRoomDTO room);
 
-    List<ResponseRoomHotelNameDTO> saveAll(List<CreateRoomDTO> rooms);
+    List<ResponseRoomHotelNameDTO> saveAll(List<CreateRoomDTO> rooms, Long idHotel);
 
     void deleteById(Long id);
 

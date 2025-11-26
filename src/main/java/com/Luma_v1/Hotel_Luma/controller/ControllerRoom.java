@@ -5,6 +5,7 @@ import com.Luma_v1.Hotel_Luma.dto.PatchRoomDTO;
 import com.Luma_v1.Hotel_Luma.dto.PutRoomDTO;
 import com.Luma_v1.Hotel_Luma.dto.ResponseRoomHotelNameDTO;
 import com.Luma_v1.Hotel_Luma.service.IServiceRoom;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,9 +40,9 @@ public class ControllerRoom {
         return new ResponseEntity<>(roomService.save(room), HttpStatus.CREATED);
     }
 
-    @PostMapping("/postBatch")
-    public ResponseEntity<List<ResponseRoomHotelNameDTO>> createRoom(@RequestBody List<CreateRoomDTO> rooms) {
-        return new ResponseEntity<>(roomService.saveAll(rooms), HttpStatus.CREATED);
+    @PostMapping("/postBatch/{idHotel}")
+    public ResponseEntity<List<ResponseRoomHotelNameDTO>> createRoom(@RequestBody List<CreateRoomDTO> rooms, @PathVariable Long idHotel) {
+        return new ResponseEntity<>(roomService.saveAll(rooms, idHotel), HttpStatus.CREATED);
     }
 
     @PutMapping("/put/{id}")
@@ -55,13 +56,10 @@ public class ControllerRoom {
     }
 
     @PatchMapping("/patch/{id}")
-    public ResponseEntity<ResponseRoomHotelNameDTO> updateRoom(@PathVariable Long id, @RequestBody PatchRoomDTO room) {
-        Optional<ResponseRoomHotelNameDTO> existingRoom = Optional.ofNullable(roomService.findById(id));
-        if (existingRoom.isPresent()) {
-            return new ResponseEntity<>(roomService.updateWithPatch(room, id), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<ResponseRoomHotelNameDTO> updateRoom(@PathVariable Long id, @RequestBody @Valid PatchRoomDTO room) {
+
+        return new ResponseEntity<>(roomService.updateWithPatch(room, id), HttpStatus.OK);
+
     }
 
     @DeleteMapping("/delete/{id}")

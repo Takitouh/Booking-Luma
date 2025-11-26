@@ -10,6 +10,7 @@ import com.Luma_v1.Hotel_Luma.repository.IRepositoryRoom;
 import com.Luma_v1.Hotel_Luma.service.IServiceRoom;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +45,12 @@ public class ServiceRoom implements IServiceRoom {
     }
 
     @Override
-    public List<ResponseRoomHotelNameDTO> saveAll(List<CreateRoomDTO> rooms) {
+    public List<ResponseRoomHotelNameDTO> saveAll(List<CreateRoomDTO> rooms, Long idHotel) {
         List<Room> roomList = new ArrayList<>();
         List<ResponseRoomHotelNameDTO> responses = new ArrayList<>();
+
+        rooms = ServiceHotel.assignHotelIdToRooms(rooms, idHotel);
+
         for (CreateRoomDTO roomDTO : rooms) {
             roomList.add(roomMapper.toEntity(roomDTO));
         }
@@ -77,15 +81,17 @@ public class ServiceRoom implements IServiceRoom {
         return roomMapper.toResponseRoomHotelNameDTO(oldRoom);
     }
 
+    @Transactional
     @Override
     public ResponseRoomHotelNameDTO updateWithPatch(PatchRoomDTO room, Long id) {
+
+
         Room oldRoom = roomRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         Room newRoom = roomMapper.toEntity(room, oldRoom);
 
-        oldRoom.setHotel(newRoom.getHotel() != null ? newRoom.getHotel() : oldRoom.getHotel());
         oldRoom.setNumber(newRoom.getNumber() != null ? newRoom.getNumber() : oldRoom.getNumber());
         oldRoom.setFee(newRoom.getFee() != null ? newRoom.getFee() : oldRoom.getFee());
-        oldRoom.setBookings(newRoom.getBookings() != null ? newRoom.getBookings() : oldRoom.getBookings());
+
 
         roomRepository.save(oldRoom);
 
