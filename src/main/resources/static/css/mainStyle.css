@@ -1,17 +1,21 @@
-* {
-    font-family: "Trebuchet MS", serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+@import url('settings/_variables.css');
+@import url('generic/_reset.css');
+@import url('objects/_layout.css');
+@import url('elements/_base.css');
+@import url('components/_search-bar.css');
+@import url('components/_navbar.css');
+@import url('components/_buttons.css');
+@import url('components/_hotel-info.css');
+@import url('components/_hotel-table-rooms.css');
+@import url('components/_input-fields.css');
+@import url('components/_cards.css');
+@import url('components/_error-msg.css');
 
-
-
+/*
 body {
     background: var(--quaternary-color);
 }
 
-/* Header */
 
 header {
     padding: 1rem;
@@ -28,8 +32,8 @@ header {
     justify-content: left;
 
 }
-
-
+*/
+/*
 #register-container, #sign-up, #log-in{
     padding: .3rem;
     margin: 1rem 1rem 1rem auto;
@@ -63,7 +67,7 @@ footer {
     padding: 5px;
 }
 
-/* NAVBAR */
+ NAVBAR
 
 #navbar {
     overflow: hidden;
@@ -97,7 +101,7 @@ footer {
     background-color: var(--secondary-color);
 }
 
-/* Hotels */
+ Hotels
 
 #Principal {
     margin: 2.4rem;
@@ -202,3 +206,4 @@ footer {
     --senary-color: rgb(10, 9, 8);
 }
 
+*/
