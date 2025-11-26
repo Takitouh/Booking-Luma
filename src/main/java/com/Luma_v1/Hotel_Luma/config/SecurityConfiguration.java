@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -52,18 +53,20 @@ public class SecurityConfiguration {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        //Register hotels
-                        .requestMatchers("/register.html", "/register.css", "/register.js", "/api/v1/hotels/register-hotel", "api/v1/guests/gethotels-byemail", "api/v1/hotels/delete/*").hasRole("GUEST")
+                        //Endpoints for the use of owners (PS: Still using GUEST role, but it will change to OWNER)
+                        .requestMatchers("/register.html", "/api/v1/hotels/register-hotel", "/api/v1/guests/gethotels-byemail", "/api/v1/hotels/delete/*", "/api/v1/hotels/patch/*", "/api/v1/rooms/patch/*", "/api/v1/rooms/delete/*", "/api/v1/rooms/postBatch/*").hasRole("GUEST")
 
                         //Public resources
-                        .requestMatchers("/", "/favicon.ico", "/css/*.css", "/js/*.js", "/imgs/**", "/*.html", "/api/v1/hotels/get/**", "/api/v1/bookings/post",
+                        .requestMatchers("/", "/favicon.ico", "/css/**", "/js/*.js", "/imgs/**", "/*.html", "/api/v1/hotels/get/**", "/api/v1/bookings/post",
                                 "/api/v1/guests/post-booking-guest/**", "/api/v1/hotels/downloadImage/**", "/auth/sign-up",
-                                "/auth/log-in", "/auth/log-out", "/api/v1/guests/getLogged", "/api/v1/payment/create-payment", "/api/v1/payment/execute-payment")
+                                "/auth/log-in", "/auth/log-out", "/api/v1/hotels/find-by-name", "/api/v1/guests/getLogged", "/api/v1/payment/create-payment", "/api/v1/payment/execute-payment")
                         .permitAll()
 
                         .requestMatchers("/api/v1/guests/**").hasRole("GUEST").anyRequest().denyAll()
                 )
-                .addFilterBefore(new filterJWT(jwtUtils), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new filterJWT(jwtUtils), UsernamePasswordAuthenticationFilter.class).headers(
+                        header -> header.xssProtection(HeadersConfigurer.XXssConfig::disable)
+                )
                 .build();
     }
 
