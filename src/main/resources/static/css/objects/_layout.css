@@ -1,0 +1,231 @@
+#navbar-list {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+#search-bar-div {
+    display: flex;
+    margin: 1.5rem;
+    gap: 1rem;
+}
+
+#hotels {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 2rem;
+    margin: 1rem 2rem;
+}
+
+.hotel-card {
+    display: inline-block;
+}
+
+
+#hotel-schedule-div {
+    margin: 1.3rem 0;
+}
+
+#hotel-amenities-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: .5rem 0 1rem 0;
+}
+
+#guest-info {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    width: fit-content;
+    align-items: flex-start;
+}
+
+#wrapper-guest-name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .5rem;
+}
+
+#hotel__booking-field {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 1.5rem .8rem;
+    gap: 1rem;
+}
+
+.hotel__booking-field-input {
+    flex: none;
+    width: fit-content;
+    margin: 0 2.5rem;
+}
+
+#auth-card {
+    margin: 4.5rem auto auto;
+}
+
+#auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+
+#profile-container {
+    margin: 1rem 1.5rem;
+}
+
+.div-input {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+#hotel-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.hotel-item {
+    flex: 2;
+    display: flex;
+    margin: 1rem 1.5rem;
+    width: 30%;
+    min-width: fit-content;
+    max-width: 40%;
+    gap: 1.5rem;
+    justify-content: space-between;
+}
+
+.hotel-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.hotel-buttons-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+}
+
+.hotel-title, .hotel-location {
+    margin: .3rem 0;
+    grid-row: auto;
+    grid-column: 1;
+}
+
+.hotel-edit-button, .hotel-see-button, .hotel-delete-button {
+    width: 5rem;
+    height: 2.5rem;
+}
+
+#description{
+    min-height: 4rem;
+}
+
+.label-input {
+    display: flex;
+    flex-direction: column;
+}
+
+#register-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background: none;
+}
+
+#register-form {
+    width: 34rem;
+    background-color: #fff;
+    border: 3px solid var(--tertiary-color);
+    border-radius: 1.2rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.10);
+    margin: 2rem auto;
+    padding: 2.5rem 2.5rem 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+#register-title {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.rooms-div{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-start;
+    min-height: 6.5rem;
+}
+
+.room-div, .new-room-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .2rem;
+    margin: 0.5rem;
+    border: 2px solid var(--secondary-color);
+    border-radius: 0.7rem;
+    padding: 0.7rem .4rem;
+    background: var(--quaternary-color);
+    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.07);
+    width: fit-content;
+    min-width: fit-content;
+    max-width: fit-content;
+
+}
+
+
+.input-field {
+    height: 1.5rem;
+    width: 50%;
+}
+
+.amenity-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+    margin-top: 0.5rem;
+
+}
+
+#sign-up-title, #log-in-title, #register-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+
+#wrapper-form{
+    margin: 2.5rem 0 0 3.5rem;
+
+}
+
+#update-hotel-main{
+    border: solid 3px var(--primary-color);
+    padding: .3rem;
+    width: 80rem;
+}
+
+#contact{
+    position: fixed;
+}

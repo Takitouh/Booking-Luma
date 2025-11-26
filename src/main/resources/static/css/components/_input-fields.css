@@ -1,0 +1,10 @@
+#first-name, #last-name, #phone, #email, #password{
+    background-color: var(--secondary-color);
+    align-items: flex-end;
+    height: 1.5rem;
+    width: 15rem;
+}
+
+.input-field{
+    background-color: var(--secondary-color);
+}

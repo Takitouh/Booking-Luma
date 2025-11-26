@@ -1,0 +1,20 @@
+:root {
+    /* COLORS */
+    --primary-color: rgb(94, 80, 63);
+    --secondary-color: rgb(198, 172, 143);
+    --tertiary-color: rgb(34, 51, 59);
+    --quaternary-color: rgb(234, 224, 213);
+    --quinary-color: rgb(20, 68, 20);
+    --senary-color: rgb(10, 9, 8);
+    --white-color: rgb(255, 255, 255);
+
+    /* FONTS */
+    --font-family-base: "Trebuchet MS", serif;
+    --font-size-base: 1rem;
+
+    /* SPACING */
+
+
+    /* BORDERS */
+    --border-radius-base: 6px;
+}

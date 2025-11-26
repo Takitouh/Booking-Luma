@@ -1,0 +1,158 @@
+#register-container, #sign-up, #log-in{
+    padding: .3rem;
+    margin: 1rem 1rem 1rem auto;
+    color: antiquewhite;
+}
+
+#log-out {
+    background-color: #c0a887;
+    padding: .4rem .5rem;
+    margin: .2rem .4rem;
+}
+
+#register, #sign-up, #log-in {
+    color: antiquewhite;
+    text-decoration: none;
+    padding: .3rem;
+    border: 2px solid #c0a887;
+    margin: 0 .3rem;
+    border-radius: 3px;
+}
+
+#register:hover, #sign-up:hover, #log-in:hover, #log-out:hover{
+    background-color: rgba(252, 197, 167, 0.69);
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+/* Booking button */
+#hotel__booking-field-button {
+    color: white;
+    background-color: var(--primary-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 0.5rem;
+    height: fit-content;
+}
+
+#hotel__booking-field-button:hover {
+    cursor: pointer;
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+}
+
+#sign-up-button {
+    padding: .9rem .4rem;
+    width: fit-content;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 0.7rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s, color 0.2s;
+}
+
+#sign-up-button:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+#login-button {
+    padding: .9rem .4rem;
+    width: fit-content;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 0.7rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s, color 0.2s;
+}
+
+#login-button:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+#save-profile {
+    background-color: var(--primary-color);
+}
+
+#save-profile:hover{
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    cursor: pointer;
+}
+
+.hotel-edit-button, .hotel-see-button, .hotel-delete-button {
+    background-color: var(--primary-color);
+}
+
+.hotel-edit-button:hover, .hotel-see-button:hover, .hotel-delete-button:hover {
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    cursor: pointer;
+}
+
+.admin-room-button {
+    align-self: end;
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.3rem 0.8rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+}
+
+.admin-room-button:hover {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+#add-room {
+    padding: 0.5rem 1.2rem;
+    background: var(--secondary-color);
+    color: var(--senary-color);
+    border: none;
+    border-radius: 0.7rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0.5rem 0 1rem 0;
+    transition: background 0.2s, color 0.2s;
+}
+
+#add-room:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+#reg-button {
+    padding: 0.9rem 0;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 0.7rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1.2rem;
+    transition: background 0.2s, color 0.2s;
+}
+
+#reg-button:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+#tab-general-info, #tab-rooms{
+    padding: .2rem .4rem;
+    background-color: var(--secondary-color);
+    border: solid 2px var(--primary-color);
+}
+
+#tab-general-info:hover, #tab-rooms:hover{
+    cursor: pointer;
+}

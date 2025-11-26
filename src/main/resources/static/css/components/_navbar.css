@@ -1,0 +1,30 @@
+#navbar {
+    overflow: hidden;
+    text-align: center;
+    color: var(--senary-color);
+    background-color: var(--primary-color);
+}
+
+
+#navbar-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    margin: .5rem 0;
+}
+
+.navbar-list-item {
+    padding: 0 .1rem;
+}
+
+.navbar-list-item-href {
+    color: black;
+    padding: 1rem 1.5rem;
+    display: block;
+    border: 3px solid var(--tertiary-color);
+    border-radius: 25px;
+}
+
+.navbar li a:hover {
+    background-color: var(--secondary-color);
+}

@@ -1,0 +1,32 @@
+#hotel-title{
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 0.7rem;
+}
+
+#hotel-description{
+    line-height: 1.25;
+    margin: 1.5rem 0;
+}
+
+#hotel-location{
+    font-size: 1.3rem;
+    font-weight: 200;
+    margin-bottom: 1.5rem;
+}
+
+#hotel-schedule{
+    padding: .6rem 0;
+}
+
+#hotel-amenities-list{
+   list-style: none;
+}
+
+.hotel-amenities-item{
+     margin: .3rem .6rem;
+}
+
+.hotel__booking-field-date {
+    background-color: var(--secondary-color);
+}

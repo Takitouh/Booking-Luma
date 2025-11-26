@@ -1,0 +1,26 @@
+
+
+.search-bar-text{
+    width: 20rem;
+    height: 2rem;
+    border-radius: 5px;
+    flex-direction: column;
+    flex: 1;
+    margin-right: .4rem;
+    border: 3px solid var(--tertiary-color);
+}
+
+#search-input{
+    width: 20rem;
+    height: auto;
+}
+
+#search-bar-button{
+    width: 6rem;
+    height: 2rem;
+    border: 3px solid var(--tertiary-color);
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+    font-size: 1rem;
+    cursor: pointer;
+}
