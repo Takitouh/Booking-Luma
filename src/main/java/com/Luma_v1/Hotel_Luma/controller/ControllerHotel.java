@@ -68,7 +68,7 @@ public class ControllerHotel {
     }
 
     @PatchMapping("/patch/{id}")
-    public ResponseEntity<ResponseHotelDTO> updateHotel(@PathVariable Long id, @RequestPart("generalInfoHotel") PatchHotelDTO generalInfo, @RequestPart(value = "file", required = false) MultipartFile file) throws IOException {
+    public ResponseEntity<ResponseHotelDTO> updateHotel(@PathVariable Long id, @RequestPart("hotelInfo") PatchHotelDTO generalInfo, @RequestPart(value = "file", required = false) MultipartFile file) throws IOException {
         return new ResponseEntity<>(hotelService.updateWithPatch(generalInfo, file, id), HttpStatus.OK);
     }
 
