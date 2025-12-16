@@ -10,6 +10,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.Cookie;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -38,8 +39,8 @@ public class ServiceGuest implements IServiceGuest {
     }
 
     @Override
-    public ResponseGuestDTO findById(Long id) {
-        return guestMapper.toResponseDTO(guestRepository.findById(id).orElseThrow(EntityNotFoundException::new));
+    public ResponseGuestDTO findProfileData(String email) {
+        return guestMapper.toResponseDTO(guestRepository.findByEmail(email));
     }
 
     @Override
@@ -103,13 +104,14 @@ public class ServiceGuest implements IServiceGuest {
 
 
     @Override
-    public void deleteById(Long id) {
-        guestRepository.deleteById(id);
+    public void deleteById(String email) {
+        Guest guest = guestRepository.findByEmail(email);
+        guestRepository.deleteById(guest.getId());
     }
 
     @Override
-    public ResponseGuestDTO updateWithPut(PutGuestDTO putGuestDTO, Long id) {
-        Guest oldGuest = guestRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    public ResponseGuestDTO updateWithPut(PutGuestDTO putGuestDTO, String email) {
+        Guest oldGuest = guestRepository.findByEmail(email);
         //Guest newGuest = guestMapper.toEntity(putGuestDTO);
 
         oldGuest.setFirstName(putGuestDTO.firstName());
@@ -122,8 +124,8 @@ public class ServiceGuest implements IServiceGuest {
     }
 
     @Override
-    public ResponseGuestDTO updateWithPatch(PatchGuestDTO guest, Long id) {
-        Guest oldGuest = guestRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    public ResponseGuestDTO updateWithPatch(PatchGuestDTO guest, String email) {
+        Guest oldGuest = guestRepository.findByEmail(email);
         Guest newGuest = guestMapper.toEntity(guest, oldGuest);
 
         oldGuest.setEmail(newGuest.getEmail() != null ? newGuest.getEmail() : oldGuest.getEmail());

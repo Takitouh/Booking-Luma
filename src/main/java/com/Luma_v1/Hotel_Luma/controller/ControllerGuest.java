@@ -7,15 +7,11 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -35,9 +31,12 @@ public class ControllerGuest {
         return new ResponseEntity<>(guestService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<ResponseGuestDTO> getGuestById(@PathVariable Long id) {
-        return new ResponseEntity<>(guestService.findById(id), HttpStatus.OK);
+    @GetMapping("/get-profile-data")
+    public ResponseEntity<ResponseGuestDTO> getGuestById(HttpServletRequest request) {
+        DecodedJWT decodedJWT = jwtUtils.getDecodedJWTFromCookie(request.getCookies());
+        String emailOwner = jwtUtils.getEmailFromToken(decodedJWT);
+
+        return new ResponseEntity<>(guestService.findProfileData(emailOwner), HttpStatus.OK);
     }
 
     @GetMapping("/getLogged")
@@ -61,35 +60,30 @@ public class ControllerGuest {
         return new ResponseEntity<>(guestService.getOldGuestOrCreateNewGuest(email, guest), HttpStatus.CREATED);
     }
 
-    @PutMapping("/put/{id}")
-    public ResponseEntity<ResponseGuestDTO> updateGuest(@PathVariable Long id, @RequestBody PutGuestDTO guest) {
-        Optional<ResponseGuestDTO> existingGuest = Optional.ofNullable(guestService.findById(id));
-        if (existingGuest.isPresent()) {
-            return new ResponseEntity<>(guestService.updateWithPut(guest, id), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @PutMapping("/put")
+    public ResponseEntity<ResponseGuestDTO> updateGuest(@RequestBody PutGuestDTO guest, HttpServletRequest request) {
+
+        DecodedJWT decodedJWT = jwtUtils.getDecodedJWTFromCookie(request.getCookies());
+        String email = jwtUtils.getEmailFromToken(decodedJWT);
+        return new ResponseEntity<>(guestService.updateWithPut(guest, email), HttpStatus.OK);
+
     }
 
-    @PatchMapping("/patch/{id}")
-    public ResponseEntity<ResponseGuestDTO> updateGuest(@PathVariable Long id, @RequestBody PatchGuestDTO guest) {
-        Optional<ResponseGuestDTO> existingGuest = Optional.ofNullable(guestService.findById(id));
-        if (existingGuest.isPresent()) {
-            return new ResponseEntity<>(guestService.updateWithPatch(guest, id), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @PatchMapping("/patch")
+    public ResponseEntity<ResponseGuestDTO> updateGuest(@RequestBody PatchGuestDTO guest, HttpServletRequest request) {
+        DecodedJWT decodedJWT = jwtUtils.getDecodedJWTFromCookie(request.getCookies());
+        String email = jwtUtils.getEmailFromToken(decodedJWT);
+        return new ResponseEntity<>(guestService.updateWithPatch(guest, email), HttpStatus.OK);
+
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteGuest(@PathVariable Long id) {
-        Optional<ResponseGuestDTO> guest = Optional.ofNullable(guestService.findById(id));
-        if (guest.isPresent()) {
-            guestService.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteGuest(HttpServletRequest request) {
+        DecodedJWT decodedJWT = jwtUtils.getDecodedJWTFromCookie(request.getCookies());
+        String email = jwtUtils.getEmailFromToken(decodedJWT);
+        guestService.deleteById(email);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
     }
 
     @GetMapping("/getbookings-byemail/{email}")

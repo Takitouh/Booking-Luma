@@ -9,7 +9,7 @@ import java.util.Set;
 public interface IServiceGuest {
     List<ResponseGuestDTO> findAll();
 
-    ResponseGuestDTO findById(Long id);
+    ResponseGuestDTO findProfileData(String emailOwner);
 
     ResponseGuestDTO save(CreateGuestDTO guest);
 
@@ -21,11 +21,11 @@ public interface IServiceGuest {
 
     UserStatusNameLogged getGuestNameIfLogged(Cookie[] cookies);
 
-    void deleteById(Long id);
+    void deleteById(String email);
 
-    ResponseGuestDTO updateWithPut(PutGuestDTO guest, Long id);
+    ResponseGuestDTO updateWithPut(PutGuestDTO guest, String email);
 
-    ResponseGuestDTO updateWithPatch(PatchGuestDTO guest, Long id);
+    ResponseGuestDTO updateWithPatch(PatchGuestDTO guest, String email);
 
     List<ResponseRoomNumAndBookingDateDTO> findBookingDateAndRoomNumAndGuestNameByGuestEmail(String email);
 
