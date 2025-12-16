@@ -26,7 +26,6 @@ public abstract class BookingMapper {
 
     @Mapping(source = "checkIn", target = "checkIn")
     @Mapping(source = "checkOut", target = "checkOut")
-    @Mapping(source = "status", target = "status")
     @Mapping(source = "totalPrice", target = "totalPrice")
     @Mapping(source = "guestId", target = "guest")
     @Mapping(source = "roomId", target = "room")
@@ -36,6 +35,7 @@ public abstract class BookingMapper {
     @Mapping(target = "intent", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "status", ignore = true)
 
     public abstract Booking toEntity(CreateBookingDTO createBookingDTO);
 
