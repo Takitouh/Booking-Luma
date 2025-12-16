@@ -1,3 +1,8 @@
+#app{
+    min-height: 85vh;
+    position: relative;
+}
+
 #navbar-list {
     display: flex;
     flex-direction: row;
@@ -34,13 +39,6 @@
     margin: .5rem 0 1rem 0;
 }
 
-#guest-info {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-    width: fit-content;
-    align-items: flex-start;
-}
 
 #wrapper-guest-name {
     display: flex;
@@ -65,11 +63,14 @@
 
 #auth-card {
     margin: 4.5rem auto auto;
+    width: 30%;
+
 }
 
 #auth-form {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1rem;
 }
 
@@ -78,11 +79,68 @@
     margin: 1rem 1.5rem;
 }
 
+#hotel-container{
+    margin: 2.5rem 8rem;
+}
+
+#guest-info {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    width: inherit;
+    align-items: flex-start;
+}
+
+.flex-div-input{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: .8rem;
+}
+
+#lab-user-first-name, #lab-check-in{
+    margin-right: 5rem;
+}
+
+
+
 .div-input {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    margin-bottom: 12px;
+    gap: .5rem;
+    margin-bottom: .8rem;
+}
+
+.label-input {
+    display: flex;
+    flex-direction: column;
+    width: 22rem;
+}
+
+.label-date{
+    display: flex;
+    flex-direction: column;
+    width: 8rem;
+}
+
+.input-field {
+    height: 1.5rem;
+    width: inherit;
+}
+
+
+
+#profile-card{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 1.5rem;
+    width: 52%;
+    min-height: 40%;
+}
+
+#save-profile {
+    width: fit-content;
 }
 
 #hotel-list {
@@ -97,7 +155,7 @@
     margin: 1rem 1.5rem;
     width: 30%;
     min-width: fit-content;
-    max-width: 40%;
+    max-width: 33%;
     gap: 1.5rem;
     justify-content: space-between;
 }
@@ -125,14 +183,41 @@
     height: 2.5rem;
 }
 
+#admin-hotel-page{
+    margin: 3rem 4.5rem;
+}
+
+#tab-container{
+    display: flex;
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+#edit-hotel-form{
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+}
+
+.btn-stl1{
+    width: fit-content;
+}
+
+.admin-room-title{
+    margin: 1.2rem 0;
+}
+
+.old-rooms-container{
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
 #description{
     min-height: 4rem;
 }
 
-.label-input {
-    display: flex;
-    flex-direction: column;
-}
 
 #register-main {
     display: flex;
@@ -153,6 +238,8 @@
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
+    position: relative;
+    z-index: 1;
 }
 
 #register-title {
@@ -192,23 +279,18 @@
 }
 
 
-.input-field {
-    height: 1.5rem;
-    width: 50%;
-}
-
 .amenity-group {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 8px;
+    grid-template-columns: 10rem 10rem 10rem;
+    gap: .5rem;
     margin-top: 0.5rem;
-
+    width: fit-content;
 }
 
-#sign-up-title, #log-in-title, #register-title {
+#auth-title {
     text-align: center;
     font-size: 2rem;
-    margin-bottom: 1rem;
+    margin: 1.3rem 0;
     color: var(--primary-color);
     font-weight: bold;
     letter-spacing: 1px;
@@ -229,3 +311,11 @@
 #contact{
     position: fixed;
 }
+
+#toast-div{
+    position: absolute;
+    top: 85%;
+    left: 1%;
+    max-width: 21.5rem;
+}
+
