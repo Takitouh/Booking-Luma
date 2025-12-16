@@ -17,21 +17,28 @@ public class SPAConfiguration implements WebMvcConfigurer {
         registry.addViewController("/hotel.html").setViewName("forward:/index.html");
         registry.addViewController("/search-results.html").setViewName("forward:/index.html");
         registry.addViewController("/log-in.html").setViewName("forward:/index.html");
-        registry.addViewController("/user-profile.html").setViewName("forward:/index.html");
+        registry.addViewController("/my-profile.html").setViewName("forward:/index.html");
         registry.addViewController("/sign-up.html").setViewName("forward:/index.html");
         registry.addViewController("/register-hotel.html").setViewName("forward:/index.html");
         registry.addViewController("/success-payment.html").setViewName("forward:/index.html");
         registry.addViewController("/failed-payment.html").setViewName("forward:/index.html");
         registry.addViewController("/sign-up-contributor.html").setViewName("forward:/index.html");
-        registry.addViewController("/update-hotel.html").setViewName("forward:/index.html");
+        registry.addViewController("/edit-hotel/*.html").setViewName("forward:/index.html");
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        if (!registry.hasMappingForPattern("/**")) {
-            registry.addResourceHandler("/**")
-                    .addResourceLocations("classpath:/static/");
+        if (!registry.hasMappingForPattern("/static/css/**")) {
+            registry.addResourceHandler("/static/css/**");
+        }
+
+        if (!registry.hasMappingForPattern("/static/js/**")){
+            registry.addResourceHandler("/static/js/**");
+        }
+
+        if (!registry.hasMappingForPattern("/static/imgs/**")){
+            registry.addResourceHandler("/static/imgs/**");
         }
     }
 
