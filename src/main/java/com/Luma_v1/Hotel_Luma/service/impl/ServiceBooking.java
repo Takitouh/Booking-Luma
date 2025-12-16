@@ -48,6 +48,8 @@ public class ServiceBooking implements IServiceBooking {
     public ResponseBookingDTO save(CreateBookingDTO booking) {
         Booking bookingEntity = bookingMapper.toEntity(booking);
 
+        bookingEntity.setStatus(Booking.BookingStatus.PENDING);
+
         validateBookingDateCrossingAndCalculateTotal(bookingEntity);
 
         logBooking(bookingEntity);
