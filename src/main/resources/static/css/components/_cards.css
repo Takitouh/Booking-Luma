@@ -1,5 +1,4 @@
 #auth-card {
-    width: 19rem;
     background-color: #fff;
     border: 3px solid var(--tertiary-color);
     border-radius: 1.2rem;
@@ -46,7 +45,7 @@
 /* Profile card */
 #profile-card {
     background: #fff;
-    padding: 22px;
+    padding: 1.8rem;
     box-shadow: 0 6px 18px rgba(10, 9, 8, 0.06);
     border: 1px solid rgba(94, 80, 63, 0.06);
     border-radius: 12px;
