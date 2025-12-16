@@ -10,6 +10,8 @@
 @import url('components/_input-fields.css');
 @import url('components/_cards.css');
 @import url('components/_error-msg.css');
+@import url('components/_toasts.css');
+@import url('components/_amenities.css');
 
 /*
 body {
