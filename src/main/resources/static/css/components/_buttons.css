@@ -26,7 +26,7 @@
 }
 
 /* Booking button */
-#hotel__booking-field-button {
+#booking-button {
     color: white;
     background-color: var(--primary-color);
     padding: 0.3rem 0.8rem;
@@ -34,13 +34,13 @@
     height: fit-content;
 }
 
-#hotel__booking-field-button:hover {
+#booking-button:hover {
     cursor: pointer;
     color: var(--primary-color);
     background-color: var(--secondary-color);
 }
 
-#sign-up-button {
+#auth-button {
     padding: .9rem .4rem;
     width: fit-content;
     background-color: var(--primary-color);
@@ -52,7 +52,7 @@
     transition: background 0.2s, color 0.2s;
 }
 
-#sign-up-button:hover {
+#auth-button:hover {
     background-color: var(--secondary-color);
     color: var(--primary-color);
 }
@@ -129,7 +129,7 @@
     color: #fff;
 }
 
-#reg-button {
+.btn-stl1 {
     padding: 0.9rem 0;
     background-color: var(--primary-color);
     color: #fff;
@@ -142,17 +142,20 @@
     transition: background 0.2s, color 0.2s;
 }
 
-#reg-button:hover {
+.btn-stl1:hover {
     background-color: var(--secondary-color);
     color: var(--primary-color);
 }
 
-#tab-general-info, #tab-rooms{
-    padding: .2rem .4rem;
+
+
+.admin-hotel-tab{
+    padding: .6rem;
+    border: var(--primary-color) 3px solid;
+    border-radius: 1.2rem;
     background-color: var(--secondary-color);
-    border: solid 2px var(--primary-color);
 }
 
-#tab-general-info:hover, #tab-rooms:hover{
+.admin-hotel-tab:hover{
     cursor: pointer;
 }
