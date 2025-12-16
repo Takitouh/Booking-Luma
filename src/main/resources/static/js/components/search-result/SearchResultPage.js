@@ -4,12 +4,12 @@ import {HotelAPI} from "../../api/HotelAPI.js";
 
 export class SearchResultPage {
     constructor(container) {
-        this.container = container
+        this.appContainer = container
     }
 
     async mount() {
         const html = this.render()
-        this.container.appendChild(html)
+        this.appContainer.appendChild(html)
 
         await this.init()
 
