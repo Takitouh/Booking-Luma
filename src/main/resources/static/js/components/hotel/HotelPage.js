@@ -11,13 +11,13 @@ export class HotelPage {
         const html = this.render()
         this.appContainer.appendChild(html)
 
-        await this.initInstances(html)
+        await this.init(html)
 
         this.hotelInfoInstance.mount()
         this.bookingFormInstance.mount()
     }
 
-    async initInstances(container) {
+    async init(container) {
         const params = new URLSearchParams(window.location.search)
         const idHotel = params.get("id")
         const hotelData = await HotelAPI.getHotelByID(idHotel)

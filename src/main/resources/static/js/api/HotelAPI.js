@@ -13,6 +13,13 @@ export const HotelAPI = {
         }
         return await response.json()
     },
+    getOwnerHotelByID: async function (ID) {
+        const response = await fetch('/api/v1/hotels/owner-get/' + ID)
+        if (!response.ok) {
+            throw new Error("Error in the reply")
+        }
+        return await response.json()
+    },
     getHotelByID: async function (ID) {
         const response = await fetch('/api/v1/hotels/get/' + ID)
         if (!response.ok) {
