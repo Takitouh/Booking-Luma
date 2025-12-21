@@ -4,13 +4,8 @@
     color: antiquewhite;
 }
 
-#log-out {
-    background-color: #c0a887;
-    padding: .4rem .5rem;
-    margin: .2rem .4rem;
-}
 
-#register, #sign-up, #log-in {
+#sign-up, #log-in {
     color: antiquewhite;
     text-decoration: none;
     padding: .3rem;
@@ -19,7 +14,7 @@
     border-radius: 3px;
 }
 
-#register:hover, #sign-up:hover, #log-in:hover, #log-out:hover{
+#sign-up:hover, #log-in:hover{
     background-color: rgba(252, 197, 167, 0.69);
     border-radius: 2px;
     cursor: pointer;
@@ -84,11 +79,16 @@
     cursor: pointer;
 }
 
-.hotel-edit-button, .hotel-see-button, .hotel-delete-button {
+.hotel-action-link {
     background-color: var(--primary-color);
+    padding-top: .65rem;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+
 }
 
-.hotel-edit-button:hover, .hotel-see-button:hover, .hotel-delete-button:hover {
+.hotel-action-link:hover {
     background-color: var(--secondary-color);
     color: var(--white-color);
     cursor: pointer;

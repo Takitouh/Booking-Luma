@@ -1,6 +1,9 @@
 @import url('settings/_variables.css');
 @import url('generic/_reset.css');
 @import url('objects/_layout.css');
+@import url('objects/_layout-booking-cards.css');
+@import url('objects/_layout-top-bar.css');
+@import url('objects/_layout-nav-bar.css');
 @import url('elements/_base.css');
 @import url('components/_search-bar.css');
 @import url('components/_navbar.css');
@@ -12,6 +15,8 @@
 @import url('components/_error-msg.css');
 @import url('components/_toasts.css');
 @import url('components/_amenities.css');
+@import url('components/_top-bar.css');
+@import url('components/_header-user-status.css');
 
 /*
 body {

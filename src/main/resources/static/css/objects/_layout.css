@@ -10,7 +10,7 @@
 }
 
 #search-bar-div {
-    display: flex;
+    display: inline-flex;
     margin: 1.5rem;
     gap: 1rem;
 }
@@ -166,10 +166,10 @@
     gap: .5rem;
 }
 
-.hotel-buttons-wrapper {
+.hotel-links-wrapper {
     display: flex;
     flex-direction: row;
-    gap: .5rem;
+    gap: .2rem;
 }
 
 .hotel-title, .hotel-location {
@@ -178,7 +178,7 @@
     grid-column: 1;
 }
 
-.hotel-edit-button, .hotel-see-button, .hotel-delete-button {
+.hotel-action-link {
     width: 5rem;
     height: 2.5rem;
 }

@@ -67,3 +67,19 @@
 .hotel-title, .hotel-location {
     font-size: 1rem;
 }
+
+/* Booking cards */
+.booking-list{
+    overflow: hidden;
+}
+
+.booking-item{
+    padding: .3rem;
+    overflow: hidden;
+}
+
+/* Menu card */
+.menu-account-drop-down{
+    background-color: var(--secondary-color);
+    box-shadow: black 0 0 10px;
+}
