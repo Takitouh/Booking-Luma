@@ -1,0 +1,43 @@
+#user-status {
+    border-radius: 1.5rem;
+    padding: 1rem;
+    background-color: inherit;
+}
+
+
+
+#menu-account-button, #register {
+    padding: 1.3rem;
+    border: none;
+    border-radius: 1.2rem;
+    background-color: inherit;
+    color: antiquewhite;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+#menu-account-button:hover, #menu-account-button:focus, #register:hover, #register:focus {
+    background-color: var(--secondary-color);
+    cursor: pointer;
+
+}
+
+
+.menu-account-drop-down {
+    list-style: none;
+}
+
+.menu-account-item {
+    text-decoration: none;
+    color: black;
+    border: none;
+    background-color: inherit;
+    font-size: 1.1rem;
+    align-items: center;
+}
+
+.menu-account-item:hover, .menu-account-item:focus {
+    background-color: var(--primary-color);
+    cursor: pointer;
+}
+

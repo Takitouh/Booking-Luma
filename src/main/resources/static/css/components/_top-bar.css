@@ -1,0 +1,14 @@
+#top-bar-profile-list {
+    list-style: none;
+}
+
+.top-bar-profile-button {
+    border: var(--primary-color) 3px solid;
+    border-radius: 1.3rem;
+    background-color: var(--secondary-color);
+}
+
+.top-bar-profile-button:hover {
+    background-color: var(--primary-color);
+    cursor: pointer;
+}

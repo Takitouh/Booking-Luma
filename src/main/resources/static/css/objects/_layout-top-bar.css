@@ -1,0 +1,19 @@
+#top-bar-profile-list {
+    margin: 2rem;
+    display: flex;
+    gap: 2.5rem;
+    flex-direction: row;
+    width: inherit;
+    height: inherit;
+}
+
+.top-bar-profile-item {
+    width: 9rem;
+    height: 3rem;
+}
+
+.top-bar-profile-button{
+    width: inherit;
+    height: inherit;
+}
+
