@@ -1,4 +1,4 @@
-import {UserStatusHeader} from "../components/user-status/UserStatusHeader.js";
+import {UserStatusNavBar} from "../components/user-status-header/UserStatusNavBar.js";
 
 class Router {
     constructor() {
@@ -31,7 +31,7 @@ class Router {
         const header = document.querySelector("header")
         header.innerHTML = "" // Clear header
 
-        const userStatusHeader = new UserStatusHeader(header)
+        const userStatusHeader = new UserStatusNavBar(header)
         userStatusHeader.mount()
 
         const appContainer = document.getElementById("app")
