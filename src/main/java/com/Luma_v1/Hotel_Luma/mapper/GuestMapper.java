@@ -26,7 +26,6 @@ public interface GuestMapper {
     Guest toEntity(PutGuestDTO putGuestDTO);
     @Mapping(source = "firstName", target = "firstName")
     @Mapping(source = "lastName", target = "lastName")
-    @Mapping(source = "email", target = "email")
     @Mapping(source = "phone", target = "phone")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "bookings", ignore = true)
