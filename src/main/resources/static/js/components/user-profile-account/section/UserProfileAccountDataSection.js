@@ -2,7 +2,7 @@ import {EditPersonalDataProcess} from "../utils/EditPersonalDataProcess.js";
 import {BuilderFlexBoxInputs} from "../../common/BuilderFlexBoxInputs.js";
 import {BuilderFilledInputs} from "../../common/BuilderFilledInputs.js";
 
-export class UserProfilePersonalDataSection {
+export class UserProfileAccountDataSection {
     constructor(container, userData) {
         this.container = container
         this.userData = userData
@@ -26,10 +26,8 @@ export class UserProfilePersonalDataSection {
             {id: 'user-last-name', label: 'Last name', type: 'text'}]
 
         const flexBoxNames = BuilderFlexBoxInputs.builderFilled(namesInput, namesData)
-        console.log(flexBoxNames)
-        console.log(form)
+
         form.appendChild(flexBoxNames)
-        console.log(form)
 
         const userData = [this.userData.phone]
         const inputs = [{id: 'user-phone', label: 'Phone', type: 'tel'}]

@@ -10,13 +10,11 @@ export class AdminPanelHotelPage {
 
     async init(adminCont){
         const adminContainer = adminCont
-
         const pathSplit = window.location.pathname.split("/")
-
         this.idHotel = parseInt(pathSplit[2])
 
 
-        this.hotelData = await HotelAPI.getHotelByID(this.idHotel)
+        this.hotelData = await HotelAPI.getOwnerHotelByID(this.idHotel)
         this.hotelTab = new HotelInfoTab(adminContainer, this.hotelData, this.idHotel)
         this.roomTab = new RoomInfoTab(adminContainer, this.hotelData.rooms, this.idHotel)
     }
@@ -29,8 +27,6 @@ export class AdminPanelHotelPage {
 
          const tabsInstance = new BuilderTabs(adminContainer, this.hotelData, this.hotelTab, this.roomTab)
          tabsInstance.mount()
-
-
      }
 
      render() {
