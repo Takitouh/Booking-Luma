@@ -1,9 +1,6 @@
 package com.Luma_v1.Hotel_Luma.service.impl;
 
-import com.Luma_v1.Hotel_Luma.dto.CreateBookingDTO;
-import com.Luma_v1.Hotel_Luma.dto.PatchBookingDTO;
-import com.Luma_v1.Hotel_Luma.dto.PutBookingDTO;
-import com.Luma_v1.Hotel_Luma.dto.ResponseBookingDTO;
+import com.Luma_v1.Hotel_Luma.dto.*;
 import com.Luma_v1.Hotel_Luma.entity.Booking;
 import com.Luma_v1.Hotel_Luma.exceptionHandler.exceptions.BookingDateCrossInvalidException;
 import com.Luma_v1.Hotel_Luma.mapper.BookingMapper;
@@ -18,6 +15,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -33,9 +31,11 @@ public class ServiceBooking implements IServiceBooking {
     }
 
     @Override
-    public List<ResponseBookingDTO> findAll() {
-        return bookingRepository.findAll().stream()
-                .map(booking -> bookingMapper.toResponseDTO(booking))
+    public List<GuestBookingDTO> findAllByEmail(String email) {
+        List<Booking> bookingSet = bookingRepository.findAllByEmail(email);
+
+        return bookingSet.stream()
+                .map(booking -> bookingMapper.toGuestBookingDTO(booking))
                 .collect(Collectors.toList());
     }
 

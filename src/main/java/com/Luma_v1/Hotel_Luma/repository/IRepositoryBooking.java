@@ -8,13 +8,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface IRepositoryBooking extends JpaRepository<Booking, Long> {
     //Check if the booking date is valid or if there are dates crossing
     @Query(value = "SELECT COUNT(b.id) FROM booking b WHERE b.room_id = :RoomID AND (:checkInDate BETWEEN b.check_in AND b.check_out OR :checkOutDate BETWEEN b.check_in AND b.check_out) OR (b.check_in BETWEEN :checkInDate AND :checkOutDate OR b.check_out BETWEEN :checkInDate AND :checkOutDate) AND b.status <> 'CANCELLED'"
             , nativeQuery = true)
-
     Integer givenCheckInAndCheckOutAndRoomID_CheckValidBookingDate(Long RoomID, LocalDate checkInDate, LocalDate checkOutDate);
 
     @Modifying
@@ -26,4 +26,8 @@ public interface IRepositoryBooking extends JpaRepository<Booking, Long> {
     @Transactional
     @Query(value = "UPDATE booking SET status = 'CANCELLED' WHERE status = 'PENDING' AND TIMESTAMPDIFF(MINUTE, created_at, CURRENT_TIMESTAMP) > :expMin", nativeQuery = true)
     int jobUpdateOfBookingStatusPendingToCancelled(int expMin);
+
+    @Query(value = "SELECT b.* FROM guest g INNER JOIN booking b ON g.id = b.guest_id WHERE g.email = :email ORDER BY b.id", nativeQuery = true)
+    List<Booking> findAllByEmail(String email);
+
 }

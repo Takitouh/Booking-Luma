@@ -1,14 +1,11 @@
 package com.Luma_v1.Hotel_Luma.service;
 
-import com.Luma_v1.Hotel_Luma.dto.CreateBookingDTO;
-import com.Luma_v1.Hotel_Luma.dto.PatchBookingDTO;
-import com.Luma_v1.Hotel_Luma.dto.PutBookingDTO;
-import com.Luma_v1.Hotel_Luma.dto.ResponseBookingDTO;
+import com.Luma_v1.Hotel_Luma.dto.*;
 
 import java.util.List;
 
 public interface IServiceBooking {
-    List<ResponseBookingDTO> findAll();
+    List<GuestBookingDTO> findAllByEmail(String email);
 
     ResponseBookingDTO findById(Long id);
 

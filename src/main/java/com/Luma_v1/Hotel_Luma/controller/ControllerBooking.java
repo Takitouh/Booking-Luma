@@ -1,11 +1,11 @@
 package com.Luma_v1.Hotel_Luma.controller;
 
-import com.Luma_v1.Hotel_Luma.dto.CreateBookingDTO;
-import com.Luma_v1.Hotel_Luma.dto.PatchBookingDTO;
-import com.Luma_v1.Hotel_Luma.dto.PutBookingDTO;
-import com.Luma_v1.Hotel_Luma.dto.ResponseBookingDTO;
+import com.Luma_v1.Hotel_Luma.dto.*;
 import com.Luma_v1.Hotel_Luma.exceptionHandler.exceptions.BookingCheckInOrCheckOutInvalidException;
 import com.Luma_v1.Hotel_Luma.service.IServiceBooking;
+import com.Luma_v1.Hotel_Luma.utils.JwtUtils;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,15 +19,19 @@ import java.util.Optional;
 public class ControllerBooking {
 
     private final IServiceBooking bookingService;
+    private final JwtUtils jwtUtils;
 
-    @Autowired
-    public ControllerBooking(IServiceBooking bookingService) {
+    public ControllerBooking(IServiceBooking bookingService, JwtUtils jwtUtils) {
         this.bookingService = bookingService;
+        this.jwtUtils = jwtUtils;
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<List<ResponseBookingDTO>> getAllBookings() {
-        return new ResponseEntity<>(bookingService.findAll(), HttpStatus.OK);
+    @GetMapping("/getByEmail")
+    public ResponseEntity<List<GuestBookingDTO>> getAllBookings(HttpServletRequest request) {
+        DecodedJWT decodedJWT = jwtUtils.getDecodedJWTFromCookie(request.getCookies());
+        String email = jwtUtils.getEmailFromToken(decodedJWT);
+
+        return new ResponseEntity<>(bookingService.findAllByEmail(email), HttpStatus.OK);
     }
 
     @GetMapping("/get/{id}")

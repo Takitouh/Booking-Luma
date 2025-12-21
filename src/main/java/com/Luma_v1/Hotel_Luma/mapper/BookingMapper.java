@@ -1,9 +1,6 @@
 package com.Luma_v1.Hotel_Luma.mapper;
 
-import com.Luma_v1.Hotel_Luma.dto.CreateBookingDTO;
-import com.Luma_v1.Hotel_Luma.dto.PatchBookingDTO;
-import com.Luma_v1.Hotel_Luma.dto.PutBookingDTO;
-import com.Luma_v1.Hotel_Luma.dto.ResponseBookingDTO;
+import com.Luma_v1.Hotel_Luma.dto.*;
 import com.Luma_v1.Hotel_Luma.entity.Booking;
 import com.Luma_v1.Hotel_Luma.entity.Guest;
 import com.Luma_v1.Hotel_Luma.entity.Room;
@@ -23,6 +20,11 @@ public abstract class BookingMapper {
     @Mapping(source = "guest", target = "guestName")
     @Mapping(source = "room", target = "roomNumber")
     public abstract ResponseBookingDTO toResponseDTO(Booking booking);
+
+    @Mapping(source = "guest", target = "guestName")
+    @Mapping(source = "room", target = "roomNumber")
+    @Mapping(source = "room", target = "hotelDetails")
+    public abstract GuestBookingDTO toGuestBookingDTO(Booking booking);
 
     @Mapping(source = "checkIn", target = "checkIn")
     @Mapping(source = "checkOut", target = "checkOut")
@@ -69,6 +71,15 @@ public abstract class BookingMapper {
     public abstract Booking toEntity(PatchBookingDTO patchBookingDTO, @MappingTarget Booking booking);
 
     @SuppressWarnings("unused")
+    protected HotelNameLocationDTO givenIdRoom_returnHotelNameLocation(Room room){
+        return repositoryRoom.findHotelNameLocationById(room.getId());
+    }
+
+
+
+
+
+    @SuppressWarnings("unused")
     protected Room givenIDRoom_returnRoomEntity(Long idRoom) {
         return repositoryRoom.findById(idRoom).orElseThrow(EntityNotFoundException::new);
     }
@@ -79,12 +90,12 @@ public abstract class BookingMapper {
     }
 
     @SuppressWarnings("unused")
-    protected String givenIDRoom_returnRoomNumber(Room room) {
+    protected String givenRoom_returnRoomNumber(Room room) {
         return room.getNumber();
     }
 
     @SuppressWarnings("unused")
-    protected String givenIDGuest_returnGuestFullName(Guest guest) {
+    protected String givenGuest_returnGuestFullName(Guest guest) {
         return guest.getFirstName() + " " + guest.getLastName();
     }
 }
