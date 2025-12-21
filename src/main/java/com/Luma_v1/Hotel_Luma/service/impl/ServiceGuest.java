@@ -7,10 +7,8 @@ import com.Luma_v1.Hotel_Luma.repository.IRepositoryGuest;
 import com.Luma_v1.Hotel_Luma.service.IServiceGuest;
 import com.Luma_v1.Hotel_Luma.utils.JwtUtils;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.Cookie;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,7 +33,7 @@ public class ServiceGuest implements IServiceGuest {
     @Override
     public List<ResponseGuestDTO> findAll() {
         return guestRepository.findAll().stream()
-                .map(guest -> guestMapper.toResponseDTO(guest)).collect(Collectors.toList());
+                .map(guestMapper::toResponseDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -72,8 +70,7 @@ public class ServiceGuest implements IServiceGuest {
             log.info("Guest with email {} already exists", email);
             return guestMapper.toResponseDTO(guest);
         }
-        ResponseGuestDTO responseGuestDTO = this.save(newGuest);
-        return responseGuestDTO;
+        return this.save(newGuest);
     }
 
     @Override
@@ -88,7 +85,7 @@ public class ServiceGuest implements IServiceGuest {
             String email = jwtUtils.getEmailFromToken(decodedJWT);
             Guest guest = guestRepository.findByEmail(email);
 
-            if (guest == null){
+            if (guest == null) {
                 return new UserStatusNameLogged(null, "", "", false);
             }
 
@@ -112,7 +109,6 @@ public class ServiceGuest implements IServiceGuest {
     @Override
     public ResponseGuestDTO updateWithPut(PutGuestDTO putGuestDTO, String email) {
         Guest oldGuest = guestRepository.findByEmail(email);
-        //Guest newGuest = guestMapper.toEntity(putGuestDTO);
 
         oldGuest.setFirstName(putGuestDTO.firstName());
         oldGuest.setLastName(putGuestDTO.lastName());
@@ -146,8 +142,6 @@ public class ServiceGuest implements IServiceGuest {
 
     @Override
     public Set<HotelNameLocationDTO> findHotelsOwner(String emailOwner) {
-
-
         return guestRepository.findHotelsByGuestEmail(emailOwner);
     }
 }
