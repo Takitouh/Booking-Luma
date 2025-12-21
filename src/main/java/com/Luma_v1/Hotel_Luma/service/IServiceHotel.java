@@ -14,6 +14,8 @@ public interface IServiceHotel {
 
     ResponseHotelDTO findById(Long id);
 
+    ResponseHotelDTO ownerFindById(Long id, String email);
+
     ResponseHotelDTO save(CreateHotelDTO hotel, String emailOwner);
 
     List<ResponseHotelDTO> saveAll(List<CreateHotelDTO> hotels);

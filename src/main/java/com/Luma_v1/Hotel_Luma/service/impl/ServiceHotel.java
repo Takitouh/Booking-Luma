@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -35,6 +36,16 @@ public class ServiceHotel implements IServiceHotel {
         this.repositoryGuest = repositoryGuest;
     }
 
+    public static List<CreateRoomDTO> assignHotelIdToRooms(List<CreateRoomDTO> rooms, Long idHotel) {
+        List<CreateRoomDTO> newRooms = new ArrayList<>();
+        for (CreateRoomDTO room : rooms) {
+            CreateRoomDTO roomDTO = new CreateRoomDTO(room.number(), room.fee(), idHotel);
+            newRooms.add(roomDTO);
+        }
+
+        return newRooms;
+    }
+
     @Override
     public List<ResponseHotelDTO> findAll() {
         return hotelRepository.findAllHotels().stream().map(hotel -> hotelMapper.toResponseDTO(hotel)).collect(Collectors.toList());
@@ -43,6 +54,28 @@ public class ServiceHotel implements IServiceHotel {
     @Override
     public ResponseHotelDTO findById(Long id) {
         return hotelMapper.toResponseDTO(hotelRepository.findById(id).orElseThrow(EntityNotFoundException::new));
+    }
+
+    @Override
+    public ResponseHotelDTO ownerFindById(Long id, String email) {
+        final Set<HotelNameLocationDTO> hotelSet = repositoryGuest.findHotelsByGuestEmail(email);
+
+        boolean flag = false;
+        // Check if the requested ID belongs to any hotel of who is requesting its info
+        for (HotelNameLocationDTO hotelDTO : hotelSet) {
+            if (id.equals(hotelDTO.id())) {
+                flag = true;
+                break;
+            }
+        }
+
+        if (!flag) {
+            return null; // If the id wasn't in the hotels associated to the email, so return nothing
+        }
+
+        final Hotel hotel = hotelRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+
+        return hotelMapper.toResponseDTO(hotel);
     }
 
     @Override
@@ -170,14 +203,5 @@ public class ServiceHotel implements IServiceHotel {
         }
     }
 
-    public static List<CreateRoomDTO> assignHotelIdToRooms(List<CreateRoomDTO> rooms, Long idHotel) {
-        List<CreateRoomDTO> newRooms = new ArrayList<>();
-        for (CreateRoomDTO room : rooms) {
-            CreateRoomDTO roomDTO = new CreateRoomDTO(room.number(), room.fee(), idHotel);
-            newRooms.add(roomDTO);
-        }
-
-        return newRooms;
-    }
 
 }

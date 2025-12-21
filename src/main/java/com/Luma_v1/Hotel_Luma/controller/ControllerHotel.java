@@ -39,7 +39,27 @@ public class ControllerHotel {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<ResponseHotelDTO> getHotelById(@PathVariable Long id) {
-        return new ResponseEntity<>(hotelService.findById(id), HttpStatus.OK);
+        final ResponseHotelDTO hotelDTO = hotelService.findById(id);
+
+        if (hotelDTO == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(hotelDTO, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/owner-get/{id}")
+    public ResponseEntity<ResponseHotelDTO> getOwnerHotelById(@PathVariable Long id, HttpServletRequest request) {
+        DecodedJWT decodedJWT = jwtUtils.getDecodedJWTFromCookie(request.getCookies());
+        String emailOwner = jwtUtils.getEmailFromToken(decodedJWT);
+
+        final ResponseHotelDTO hotelDTO = hotelService.ownerFindById(id, emailOwner);
+
+        if (hotelDTO == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(hotelDTO, HttpStatus.OK);
+        }
     }
 
     @GetMapping("/find-by-name")
@@ -57,29 +77,22 @@ public class ControllerHotel {
         return new ResponseEntity<>(hotelService.saveAll(hotels), HttpStatus.CREATED);
     }
 
-    @PutMapping("/put/{id}")
-    public ResponseEntity<ResponseHotelDTO> updateHotel(@PathVariable Long id, @RequestBody PutHotelDTO hotel) {
-        Optional<ResponseHotelDTO> existingHotel = Optional.ofNullable(hotelService.findById(id));
-        if (existingHotel.isPresent()) {
-            return new ResponseEntity<>(hotelService.updateWithPut(hotel, id), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
     @PatchMapping("/patch/{id}")
     public ResponseEntity<ResponseHotelDTO> updateHotel(@PathVariable Long id, @RequestPart("hotelInfo") PatchHotelDTO generalInfo, @RequestPart(value = "file", required = false) MultipartFile file) throws IOException {
         return new ResponseEntity<>(hotelService.updateWithPatch(generalInfo, file, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteHotel(@PathVariable Long id) {
-        Optional<ResponseHotelDTO> hotel = Optional.ofNullable(hotelService.findById(id));
-        if (hotel.isPresent()) {
+    public ResponseEntity<Void> deleteHotel(@PathVariable Long id, HttpServletRequest request) {
+        DecodedJWT decodedJWT = jwtUtils.getDecodedJWTFromCookie(request.getCookies());
+        String emailOwner = jwtUtils.getEmailFromToken(decodedJWT);
+
+        ResponseHotelDTO hotel = hotelService.ownerFindById(id, emailOwner);
+        if (hotel == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
             hotelService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
