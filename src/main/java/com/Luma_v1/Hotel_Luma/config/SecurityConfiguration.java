@@ -54,16 +54,20 @@ public class SecurityConfiguration {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         //Endpoints for the use of owners (PS: Still using GUEST role, but it will change to OWNER)
-                        .requestMatchers("/register.html", "/edit-hotel/*.html","/api/v1/hotels/register-hotel", "/api/v1/guests/gethotels-byemail", "/api/v1/hotels/delete/*", "/api/v1/hotels/patch/*", "/api/v1/rooms/patch/*", "/api/v1/rooms/delete/*", "/api/v1/rooms/postBatch/*").hasRole("GUEST")
+                        .requestMatchers("/register.html", "/edit-hotel/*.html","/api/v1/hotels/owner-get/*","/api/v1/hotels/register-hotel", "/api/v1/guests/gethotels-byemail",
+                                "/api/v1/hotels/delete/*", "/api/v1/hotels/patch/*", "/api/v1/rooms/patch/*",
+                                "/api/v1/rooms/delete/*", "/api/v1/rooms/postBatch/*").hasRole("GUEST")
 
                         //Public resources
-                        .requestMatchers("/", "/favicon.ico", "/css/**", "/js/**", "/imgs/**", "/*.html", "/api/v1/hotels/get/**", "/api/v1/bookings/post",
+                        .requestMatchers("/",    "/favicon.ico", "/css/**", "/js/**", "/imgs/**", "/*.html", "/api/v1/hotels/get/**", "/api/v1/bookings/post",
                                 "/api/v1/guests/post-booking-guest/**", "/api/v1/hotels/downloadImage/**", "/auth/sign-up",
                                 "/auth/log-in", "/auth/log-out", "/api/v1/hotels/find-by-name", "/api/v1/guests/getLogged", "/api/v1/payment/create-payment", "/api/v1/payment/execute-payment")
                         .permitAll()
 
                         //Endpoints for all the logged users
-                        .requestMatchers("/api/v1/guests/**", "/user-profile/*.html").hasRole("GUEST").anyRequest().denyAll()
+                        .requestMatchers("/api/v1/bookings/getByEmail","/api/v1/guests/**",
+                                "/my-profile/bookings.html","/my-profile/accommodations.html",
+                                "/my-profile/settings.html","/user-profile/*.html").hasRole("GUEST").anyRequest().denyAll()
                 )
                 .addFilterBefore(new filterJWT(jwtUtils), UsernamePasswordAuthenticationFilter.class).headers(
                         header -> header.xssProtection(HeadersConfigurer.XXssConfig::disable)
