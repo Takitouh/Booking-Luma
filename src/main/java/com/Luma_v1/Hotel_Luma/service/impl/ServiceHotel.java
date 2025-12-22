@@ -80,6 +80,14 @@ public class ServiceHotel implements IServiceHotel {
 
     @Override
     public ResponseHotelDTO save(CreateHotelDTO hotel, String emailOwner) {
+        // Validate the value belongs to an enum option
+        try {
+            Hotel.AccommodationType.valueOf(String.valueOf(hotel.accommodationType()));
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Accommodation type not valid:" + hotel.accommodationType());
+        }
+
+
         Hotel hotelEntity = hotelMapper.toEntity(hotel);
         hotelEntity.setOwner(repositoryGuest.findByEmail(emailOwner)); //Associate owner to his hotel
         hotelRepository.save(hotelEntity);

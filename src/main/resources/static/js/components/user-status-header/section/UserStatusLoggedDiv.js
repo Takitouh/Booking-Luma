@@ -74,7 +74,6 @@ export class UserStatusLoggedDiv {
         })
 
         window.addEventListener("click", (event) => {
-            console.log(event.target)
             if (!event.target.matches("#menu-account-button")) {
                 document.querySelector(".menu-account-drop-down").classList.toggle("show-menu-account-drop-down",
                     false)

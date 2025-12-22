@@ -3,13 +3,14 @@ import {BuilderCheckBoxAmenities} from "../../common/BuilderCheckBoxAmenities.js
 import {BuilderRoomCard} from "../../common/BuilderRoomCard.js";
 import {RegisterHotelProcess} from "../utils/RegisterHotelProcess.js";
 import {BuilderToast} from "../../common/BuilderToast.js";
+import {BuilderAccommodationTypeRadioButton} from "../../common/BuilderAccommodationTypeRadioButton.js";
 
 export class RegisterHotelForm {
     constructor(container) {
         this.appContainer = container
     }
 
-    mount(){
+    mount() {
         const html = this.render()
         this.appContainer.appendChild(html)
         this.bindListener()
@@ -29,6 +30,16 @@ export class RegisterHotelForm {
             {id: 'schedule-check-out', label: 'Check-out Time', type: 'time'}]
 
         BuilderInputs.builder(fields, registerForm)
+
+        const accommodationTypes = [{value: 'HOTEL', name: "Hotel"},
+            {value: "HOSTEL", name: "Hostel"},
+            {value: "APARTMENT", name: "Apartment"},
+            {value: "RESORT", name: "Resort"},
+            {value: "MOTEL", name: "Motel"},
+            {value: "VILLAS", name: "Villas"}]
+
+        const fieldSetAccommodation = BuilderAccommodationTypeRadioButton.builder(accommodationTypes)
+        registerForm.appendChild(fieldSetAccommodation)
 
         const amenitiesList = [{id: 'wifi', value: 'WiFi'},
             {id: 'pool', value: 'Pool'},

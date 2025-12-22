@@ -29,6 +29,10 @@ export class RegisterHotelProcess {
         const location = document.getElementById("location").value.trim()
         const checkIn = document.getElementById("schedule-check-in").value.trim()
         const checkOut = document.getElementById("schedule-check-out").value.trim()
+
+        const accommodation = document.querySelector("input[name = 'accommodation']:checked")
+        const accommodationValue = accommodation.value
+
         //Get the checkboxes selected
         const ameniChecked = document.querySelectorAll('input[name =  "amenities"]:checked')
 
@@ -39,6 +43,7 @@ export class RegisterHotelProcess {
             name: hotelName,
             description: description,
             location: location,
+            accommodationType: accommodationValue,
             scheduleCheckIn: checkIn,
             scheduleCheckOut: checkOut,
             amenities: arrayAmenities

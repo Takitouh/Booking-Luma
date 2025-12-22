@@ -1,9 +1,9 @@
 package com.Luma_v1.Hotel_Luma.mapper;
 
-import com.Luma_v1.Hotel_Luma.dto.ResponseHotelDTO;
 import com.Luma_v1.Hotel_Luma.dto.CreateHotelDTO;
-import com.Luma_v1.Hotel_Luma.dto.PutHotelDTO;
 import com.Luma_v1.Hotel_Luma.dto.PatchHotelDTO;
+import com.Luma_v1.Hotel_Luma.dto.PutHotelDTO;
+import com.Luma_v1.Hotel_Luma.dto.ResponseHotelDTO;
 import com.Luma_v1.Hotel_Luma.entity.Hotel;
 import org.mapstruct.*;
 
@@ -21,6 +21,7 @@ public interface HotelMapper {
 
     @Mapping(source = "location", target = "location")
     @Mapping(source = "name", target = "name")
+    @Mapping(source = "accommodationType", target = "accommodationType")
     @Mapping(source = "scheduleCheckIn", target = "scheduleCheckIn")
     @Mapping(source = "scheduleCheckOut", target = "scheduleCheckOut")
     @Mapping(target = "rooms", ignore = true)

@@ -24,6 +24,10 @@ public class Hotel {
     @Column(nullable = false)
     private String location;
 
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private AccommodationType accommodationType;
+
     @ElementCollection
     @CollectionTable(name = "hotel_amenities", joinColumns = @JoinColumn(name = "hotel_id"))
     @Column(name = "amenity")
@@ -50,4 +54,13 @@ public class Hotel {
 
     @ManyToOne
     private Guest owner;
+
+    public enum AccommodationType {
+        HOTEL,
+        HOSTEL,
+        APARTMENT,
+        RESORT,
+        MOTEL,
+        VILLAS
+    }
 }

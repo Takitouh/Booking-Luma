@@ -1,5 +1,6 @@
 package com.Luma_v1.Hotel_Luma.dto;
 
+import com.Luma_v1.Hotel_Luma.entity.Hotel;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -13,6 +14,9 @@ public record CreateHotelDTO(
         String description,
         @NotBlank(message = "Location can't be null or blank")
         String location,
+        @NotNull(message = "Accommodation type can't be null")
+        Hotel.AccommodationType accommodationType,
+
         @NotNull(message = "Schedule check-in can't be null")
         LocalTime scheduleCheckIn,
         @NotNull(message = "Schedule check-out can't be null")

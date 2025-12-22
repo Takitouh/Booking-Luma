@@ -319,3 +319,9 @@
     max-width: 21.5rem;
 }
 
+.accommodation-group {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
